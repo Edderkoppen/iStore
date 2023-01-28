@@ -1,43 +1,39 @@
 package components.menus;
-import components.button.SquareButton;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 
-public class PageInscription {
-
+public class PageInscription extends JFrame {
     int width;
     int height;
 
-    JFrame frameInscription;
+    JButton squareButton = new JButton("Valider");
+    JPanel pan = new JPanel();
+
+
     public PageInscription(int height, int width) {
+
         this.height = height;
         this.width = width;
-        frameInscription= new JFrame();
-
-        frameInscription.setSize(this.width*3/4, this.height*3/4);
-        frameInscription.setLocation((this.width-this.width*3/4)/2, (this.height-this.height*3/4)/2);
-        frameInscription.setResizable(false);
-        frameInscription.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
     }
 
     public void draw() {
-        frameInscription.setVisible(true);
+        this.setTitle("IStore");
+        this.setSize(this.width*3/4, this.height*3/4);
+        this.setLocationRelativeTo(null);
+//        this.setLocation((this.width-this.width*3/4)/2, (this.height-this.height*3/4)/2);
+        this.setResizable(false);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        JButton squareButton = new JButton("coucou");
-        squareButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frameInscription.hide();
-            }
-        });
-        frameInscription.add(squareButton);
+        squareButton.addActionListener(click -> hideWindow());
+        pan.add(squareButton);
+        this.setContentPane(pan);
+        this.setVisible(true);
     }
 
-    public void hide() {
-        frameInscription.setVisible(false);
+    public void hideWindow() {
+        this.setVisible(false);
     }
 
 }

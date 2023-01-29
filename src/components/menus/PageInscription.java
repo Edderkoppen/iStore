@@ -4,16 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PageInscription extends JFrame {
-    private int screenW;
-    private int screenH;
-    private int labelW;
-    private int labelH;
-    private int buttonW;
-    private int buttonH;
-    private JLabel nameLabel, surnameLabel, emailLabel, passwordLabel;
-    private JTextField nameField, surnameField, emailField;
-    private JPasswordField passwordField;
-    private JButton submitButton;
+    private final int screenW;
+    private final int screenH;
+    private final int labelW;
+    private final int labelH;
+    private final int buttonW;
+    private final int buttonH;
 
 
     public PageInscription(int height, int width) {
@@ -33,26 +29,28 @@ public class PageInscription extends JFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        nameLabel = new JLabel("Prénom :", SwingConstants.CENTER);
-        surnameLabel = new JLabel("Nom :", SwingConstants.CENTER);
-        emailLabel = new JLabel("Email :", SwingConstants.CENTER);
-        passwordLabel = new JLabel("Mot de passe :", SwingConstants.CENTER);
+        JLabel nameLabel = new JLabel("Prénom :", SwingConstants.CENTER);
+        JLabel surnameLabel = new JLabel("Nom :", SwingConstants.CENTER);
+        JLabel emailLabel = new JLabel("Email :", SwingConstants.CENTER);
+        JLabel passwordLabel = new JLabel("Mot de passe :", SwingConstants.CENTER);
 
-        nameField = new JTextField();
-        surnameField = new JTextField();
-        emailField = new JTextField();
-        passwordField = new JPasswordField();
+        JTextField nameField = new JTextField();
+        JTextField surnameField = new JTextField();
+        JTextField emailField = new JTextField();
+        JPasswordField passwordField = new JPasswordField();
 
-        submitButton = new JButton("Soumettre");
+        JButton submitButton = new JButton("Soumettre");
 
 
         nameLabel.setFont(new Font("Serif", Font.BOLD, 30));
         nameLabel.setForeground(Color.black);
-        nameLabel.setBounds(((this.screenW)/2)-200, this.screenH/8, this.labelW, this.labelH);
+        nameLabel.setBackground(Color.GREEN);
+        nameLabel.setOpaque(true);
+        nameLabel.setBounds((int) ((this.screenW * 0.25) - this.labelW / 2), (int) (this.screenH*0.25 - this.labelH/2), this.labelW, this.labelH); //Bon calcul de positionnement.
 
-        surnameLabel.setBounds((this.screenW/2)-(this.labelW/2), this.screenH/3, this.labelW, this.labelH); // nope
+        surnameLabel.setBounds((this.screenW/2)-(this.labelW/2), this.screenH/3, this.labelW, this.labelH);
 
-        nameField.setBounds((this.screenW/2), this.screenH/8, this.labelW, 40);
+        nameField.setBounds((int) ((this.screenW * 0.75) - this.labelW / 2), (int) (this.screenH*0.25 - this.labelH/2), this.labelW, this.labelH);
 
         submitButton.setBounds(((this.screenW)/2)-(this.buttonW/2), this.screenH/2, this.buttonW, this.buttonH);
         submitButton.addActionListener(click -> hideInscriptionScreen());

@@ -20,7 +20,7 @@ public class SquareButton {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PageInscription test = new PageInscription(1000, 1000);
-                test.hideWindow();
+                test.hideInscriptionScreen();
             }
         });
 

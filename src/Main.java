@@ -1,19 +1,19 @@
-import components.menus.PageInscription;
+import components.fenetre.WindowFrame;
 
+import javax.swing.*;
 import java.awt.Dimension;
-
-// Code
-
 
 public class Main {
     public static void main(String[] args) {
-//        Connexion connexion = new Connexion();
-//        connexion.connexionBdd();
 
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int)dimension.getHeight();
         int width  = (int)dimension.getWidth();
-        PageInscription test = new PageInscription(height, width);
-        test.inscriptionScreen();
+        int height = (int)dimension.getHeight();
+
+        String currentPage = "";
+
+        WindowFrame frame = new WindowFrame(width, height);
+
+        frame.showWindow(frame.choosePanel(currentPage));
     }
 }

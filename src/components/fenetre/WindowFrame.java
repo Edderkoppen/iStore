@@ -4,6 +4,7 @@ import components.menus.PageInscription;
 import components.menus.Test;
 
 import javax.swing.*;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
 import java.util.Objects;
 
 public class WindowFrame extends JFrame {
@@ -15,8 +16,9 @@ public class WindowFrame extends JFrame {
         this.height = height;
     }
 
-    public void showWindow(JPanel panel) {
+    public void showWindow(JPanel panel) throws UnsupportedLookAndFeelException {
 
+        UIManager.setLookAndFeel(new NimbusLookAndFeel());
         this.setTitle("IStore");
         this.setSize(width*3/4, height*3/4);
         this.setLocationRelativeTo(null); // this.setLocation((this.width-this.width*3/4)/2, (this.height-this.height*3/4)/2); Pour positionner la frame au centre de la page.

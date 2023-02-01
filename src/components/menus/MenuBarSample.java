@@ -1,6 +1,9 @@
 package components.menus;
 
 import javax.swing.*;
+import javax.swing.event.MenuEvent;
+import javax.swing.plaf.nimbus.NimbusLookAndFeel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -8,16 +11,22 @@ import java.awt.event.KeyEvent;
 public class MenuBarSample extends JFrame {
     private final int screenW;
     private final int screenH;
-
+    private final Font font;
 
     public MenuBarSample(int width, int height) {
         super("Istore");
 
         this.screenW = width*3/4;
         this.screenH = height*3/4;
+        this.font = new Font("Arial", Font.PLAIN, 12);
 
+        UIManager.put("Menu.font", font);
+        UIManager.put("MenuItem.font", font);
+
+        this.setIconImage(new ImageIcon("src/assets/icons/cut.png").getImage());
         this.setSize(screenW, screenH);
         this.setLocationRelativeTo(null);
+        this.getContentPane().setBackground(Color.darkGray);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         this.setJMenuBar(createMenuBar());
@@ -27,37 +36,59 @@ public class MenuBarSample extends JFrame {
     private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 
-        JMenu menuAction = new JMenu("Action");
+        JMenu menuUser = new JMenu("Utilisateur");
+        JMenu menuStore = new JMenu("Magasin");
 
-        menuAction.setMnemonic('A');
+        menuUser.setMnemonic('U');
+        menuStore.setMnemonic('M');
 
-        JMenuItem itemConnexion = new JMenuItem("Se connecter");
-        JMenuItem itemInscription = new JMenuItem("S'inscrire");
+        JMenuItem itemInfosUser = new JMenuItem("Informations");
+        JMenuItem itemUpdateUser = new JMenuItem("Update");
+        JMenuItem itemDeleteUser = new JMenuItem("Delete");
+        JMenuItem itemSeeStore = new JMenuItem("Informations");
 
-        itemConnexion.setMnemonic('C');
-        itemConnexion.setIcon(new ImageIcon("src/assets/icons/about.jpg"));
-        itemConnexion.addActionListener(this::itemConnexionListener);
+        itemInfosUser.setIcon(new ImageIcon("src/assets/icons/about.png"));
+        itemInfosUser.addActionListener(this::itemInfosUserListener);
 
-        itemInscription.setMnemonic('I');
-        itemInscription.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
-        itemInscription.addActionListener(this::itemInscriptionListener);
+        itemUpdateUser.setMnemonic('P');
+        itemUpdateUser.setIcon(new ImageIcon("src/assets/icons/about.png"));;
+        itemUpdateUser.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK));
+        itemUpdateUser.addActionListener(this::itemUpdateListener);
 
-        menuAction.add(itemConnexion);
-        menuAction.addSeparator();
-        menuAction.add(itemInscription);
+        itemDeleteUser.setMnemonic('D');
+        itemDeleteUser.addActionListener(this::itemDeleteListener);
 
+        itemSeeStore.setMnemonic('I');
+        itemSeeStore.setIcon(new ImageIcon("src/assets/icons/about.png"));
+        itemSeeStore.addActionListener(this::menuStoreListener);
 
-        menuBar.add(menuAction);
+        menuUser.add(itemInfosUser);
+        menuUser.addSeparator();
+        menuUser.add(itemUpdateUser);
+        menuUser.addSeparator();
+        menuUser.add(itemDeleteUser);
+
+        menuStore.add(itemSeeStore);
+
+        menuBar.add(menuUser);
+        menuBar.add(menuStore);
         return menuBar;
     }
 
 
-    private void itemConnexionListener(ActionEvent event) {
-        JOptionPane.showMessageDialog(this, "Connection" );
+    private void itemInfosUserListener(ActionEvent event) {
+        JOptionPane.showMessageDialog(this, "Infos");
     }
 
+    private void itemUpdateListener(ActionEvent event) {
+        JOptionPane.showMessageDialog(this, "Update" );
+    }
 
-    private void itemInscriptionListener(ActionEvent event) {
-        JOptionPane.showMessageDialog(this, "Inscription" );
+    private void itemDeleteListener(ActionEvent event) {
+        JOptionPane.showMessageDialog(this, "Delete" );
+    }
+
+    private void menuStoreListener(ActionEvent event) {
+        JOptionPane.showMessageDialog(this, "Store");
     }
 }

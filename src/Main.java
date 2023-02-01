@@ -12,7 +12,6 @@ public class Main {
         int width  = (int)dimension.getWidth();
         int height = (int)dimension.getHeight();
 
-        UIManager.setLookAndFeel(new NimbusLookAndFeel());
         MenuBarSample window = new MenuBarSample(width, height);
         window.setVisible(true);
 

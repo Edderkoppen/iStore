@@ -19,7 +19,7 @@ public class WindowScreen extends JFrame {
         UIManager.put("Menu.font", font);
         UIManager.put("MenuItem.font", font);
 
-        this.setIconImage(new ImageIcon("src/assets/icons/cut.png").getImage());
+        this.setIconImage(new ImageIcon("src/assets/icons/test.png").getImage());
         this.setSize(screenW, screenH);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.darkGray);
@@ -130,6 +130,7 @@ public class WindowScreen extends JFrame {
         JPopupMenu test = this.createPopupMenu();
 
         leftPane.setPreferredSize(new Dimension((int) (this.screenW*0.15), 0));
+
         centralPane.setPreferredSize(new Dimension((int) (this.screenW*0.60), 0));
 
         leftPane.addMouseListener(new MouseAdapter() {
@@ -205,5 +206,6 @@ public class WindowScreen extends JFrame {
     private void toolBarNewListener(ActionEvent event) {
         JOptionPane.showMessageDialog(this, "Nouveau");
     }
+
 
 }

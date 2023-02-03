@@ -191,7 +191,7 @@ public class WindowScreen extends JFrame {
 
 
     private void itemInfosUserListener(ActionEvent event) {
-        JOptionPane.showMessageDialog(this, DatabaseConnexion.testData());
+        JOptionPane.showMessageDialog(this, DatabaseConnexion.testData().get(0));
     }
 
     private void itemUpdateListener(ActionEvent event) {

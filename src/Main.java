@@ -17,5 +17,11 @@ public class Main {
         WindowScreen window = new WindowScreen(width, height);
         window.setVisible(true);
 
+        boolean fini = true;
+
+        if(!fini) {
+            conn.closeConn();
+            System.out.println("Connection fermée");
+        }
     }
 }

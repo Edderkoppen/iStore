@@ -19,8 +19,8 @@ public class SquareButton {
         squareButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                PageInscription test = new PageInscription(1000, 1000);
-                test.hideInscriptionScreen();
+//                PageInscription test = new PageInscription(1000, 1000);
+//                test.hideInscriptionScreen();
             }
         });
 

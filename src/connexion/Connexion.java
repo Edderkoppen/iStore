@@ -28,4 +28,8 @@ public class Connexion {
             throw new RuntimeException(e);
         }
     }
+
+    public static void main(String args[]) {
+        connexionBdd();
+    }
 }

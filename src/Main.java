@@ -1,3 +1,4 @@
+
 import components.menus.PageConnexion;
 import components.menus.PageInscription;
 
@@ -16,6 +17,6 @@ public class Main {
         int width  = (int)dimension.getWidth();
         PageInscription test = new PageInscription(height, width);
         test.inscriptionScreen();
-        new PageConnexion();
+
     }
 }

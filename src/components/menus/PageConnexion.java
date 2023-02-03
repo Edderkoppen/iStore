@@ -1,50 +1,36 @@
 package components.menus;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Scanner;
 
-public class PageConnexion extends JFrame {
+public class PageConnexion {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter pseudo: ");
+        String pseudo = sc.nextLine();
+        System.out.print("Enter password: ");
+        String passwd = sc.nextLine();
 
-    private JTextField usernameField;
-    private JPasswordField passwordField;
-    private JButton loginButton;
-    private JButton cancelButton;
+        try (Connection connection = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/istore", "root", "root")) {
 
-    public PageConnexion() {
-        super("Login");
-        setSize(600, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new FlowLayout());
+            PreparedStatement stmt = connection.prepareStatement(
+                    "SELECT * FROM user WHERE pseudo = ? AND password = ?");
+            stmt.setString(1, pseudo);
+            stmt.setString(2, passwd);
+            ResultSet rs = stmt.executeQuery();
 
-        JLabel usernameLabel = new JLabel("Username:");
-        add(usernameLabel);
-        usernameField = new JTextField(20);
-        add(usernameField);
-
-        JLabel passwordLabel = new JLabel("Password:");
-        add(passwordLabel);
-        passwordField = new JPasswordField(20);
-        add(passwordField);
-
-        loginButton = new JButton("Login");
-        add(loginButton);
-        loginButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String username = usernameField.getText();
-                char[] password = passwordField.getPassword();
-                // Validate the username and password
+            if (rs.next()) {
+                System.out.println("Salut, " + rs.getString("id_role"));
+            } else {
+                System.out.println("Information fausse =/");
             }
-        });
-
-        cancelButton = new JButton("Cancel");
-        add(cancelButton);
-        cancelButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
-
-        setVisible(true);
+        } catch (SQLException e) {
+            System.err.println("Sa marche po ='(" + e.getMessage());
+        }
     }
 }

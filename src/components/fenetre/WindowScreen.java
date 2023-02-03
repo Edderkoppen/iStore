@@ -39,23 +39,23 @@ public class WindowScreen extends JFrame {
     private JMenuBar createMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 
-        JMenu menuUser = new JMenu("Utilisateur");
+        JMenu menuUser = new JMenu("Action");
         JMenu menuStore = new JMenu("Magasin");
 
         menuUser.setMnemonic('U');
         menuStore.setMnemonic('M');
 
-        JMenuItem itemInfosUser = new JMenuItem("Informations");
-        JMenuItem itemUpdateUser = new JMenuItem("Update");
+        JMenuItem itemInfosUser = new JMenuItem("Se connecter");
+        JMenuItem itemUpdateUser = new JMenuItem("S'inscrire");
         JMenuItem itemDeleteUser = new JMenuItem("Delete");
         JMenuItem itemSeeStore = new JMenuItem("Informations");
 
-        itemInfosUser.setIcon(new ImageIcon("src/assets/icons/about.png"));
+//        itemInfosUser.setIcon(new ImageIcon("src/assets/icons/about.png"));
         itemInfosUser.addActionListener(this::itemInfosUserListener);
 
-        itemUpdateUser.setMnemonic('P');
-        itemUpdateUser.setIcon(new ImageIcon("src/assets/icons/about.png"));;
-        itemUpdateUser.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK));
+        itemUpdateUser.setMnemonic('I');
+//        itemUpdateUser.setIcon(new ImageIcon("src/assets/icons/about.png"));;
+        itemUpdateUser.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
         itemUpdateUser.addActionListener(this::itemUpdateListener);
 
         itemDeleteUser.setMnemonic('D');
@@ -188,11 +188,11 @@ public class WindowScreen extends JFrame {
 
 
     private void itemInfosUserListener(ActionEvent event) {
-        JOptionPane.showMessageDialog(this, "Infos");
+        JOptionPane.showMessageDialog(this, "Connecté");
     }
 
     private void itemUpdateListener(ActionEvent event) {
-        JOptionPane.showMessageDialog(this, "Update" );
+        JOptionPane.showMessageDialog(this, "Inscrit" );
     }
 
     private void itemDeleteListener(ActionEvent event) {

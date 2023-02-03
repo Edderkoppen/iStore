@@ -18,7 +18,7 @@ public class Connexion {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("select * from user;");
             rs.next();
-            System.out.println(rs.getString(2));
+//            System.out.println(rs.getString());
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

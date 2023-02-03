@@ -1,7 +1,9 @@
 import components.menus.PageConnexion;
 import components.menus.PageInscription;
 import components.fenetre.WindowScreen;
+import connexion.DatabaseConnexion;
 
+import javax.xml.crypto.Data;
 import java.awt.Dimension;
 
 public class Main {
@@ -11,6 +13,7 @@ public class Main {
         int width  = (int)dimension.getWidth();
         int height = (int)dimension.getHeight();
 
+        DatabaseConnexion conn = new DatabaseConnexion();
         WindowScreen window = new WindowScreen(width, height);
         window.setVisible(true);
 

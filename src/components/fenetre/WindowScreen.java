@@ -1,8 +1,11 @@
 package components.fenetre;
 
+import connexion.DatabaseConnexion;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 
 public class WindowScreen extends JFrame {
     private final int screenW;
@@ -50,11 +53,11 @@ public class WindowScreen extends JFrame {
         JMenuItem itemDeleteUser = new JMenuItem("Delete");
         JMenuItem itemSeeStore = new JMenuItem("Informations");
 
-//        itemInfosUser.setIcon(new ImageIcon("src/assets/icons/about.png"));
+        itemInfosUser.setIcon(new ImageIcon("src/assets/icons/about.png"));
         itemInfosUser.addActionListener(this::itemInfosUserListener);
 
         itemUpdateUser.setMnemonic('I');
-//        itemUpdateUser.setIcon(new ImageIcon("src/assets/icons/about.png"));;
+        itemUpdateUser.setIcon(new ImageIcon("src/assets/icons/about.png"));;
         itemUpdateUser.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
         itemUpdateUser.addActionListener(this::itemUpdateListener);
 
@@ -68,10 +71,10 @@ public class WindowScreen extends JFrame {
         menuUser.add(itemInfosUser);
         menuUser.addSeparator();
         menuUser.add(itemUpdateUser);
-        menuUser.addSeparator();
-        menuUser.add(itemDeleteUser);
 
         menuStore.add(itemSeeStore);
+        menuStore.addSeparator();
+        menuStore.add(itemDeleteUser);
 
         menuBar.add(menuUser);
         menuBar.add(menuStore);
@@ -93,14 +96,14 @@ public class WindowScreen extends JFrame {
         JButton btnExit = new JButton( new ImageIcon( "src/assets/icons/exit.png") );
 
         buttonNew.setToolTipText("Nouveau");
-        buttonNew.addActionListener(this::toolBarNewListener);
-
         btnSave.setToolTipText( "Enregistrer" );
         btnSaveAs.setToolTipText( "Save As..." );
         btnCopy.setToolTipText( "Copier" );
         btnCut.setToolTipText( "Couper" );
         btnPaste.setToolTipText( "Coller" );
         btnExit.setToolTipText( "Quitter" );
+
+        buttonNew.addActionListener(this::toolBarNewListener);
 
         toolBar.add(buttonNew);
         toolBar.addSeparator();
@@ -151,44 +154,44 @@ public class WindowScreen extends JFrame {
         JPopupMenu popupMenu = new JPopupMenu();
 
         JMenuItem mnuUndo = new JMenuItem( "Undo" );
+        JMenuItem mnuRedo = new JMenuItem( "Redo" );
+        JMenuItem mnuCopy = new JMenuItem( "Copy" );
+        JMenuItem mnuCut = new JMenuItem( "Cut" );
+        JMenuItem mnuPaste = new JMenuItem( "Paste" );
+
         mnuUndo.setIcon( new ImageIcon( "src/assets/icons/undo.png" ) );
         mnuUndo.setMnemonic( 'U' );
-        mnuUndo.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK) );
-        popupMenu.add(mnuUndo);
+        mnuUndo.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK) );
 
-        JMenuItem mnuRedo = new JMenuItem( "Redo" );
         mnuRedo.setIcon( new ImageIcon( "src/assets/icons/redo.png" ) );
         mnuRedo.setMnemonic( 'R' );
-        mnuRedo.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_U, KeyEvent.CTRL_DOWN_MASK) );
-        popupMenu.add(mnuRedo);
+        mnuRedo.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK) );
 
-        popupMenu.addSeparator();
-
-        JMenuItem mnuCopy = new JMenuItem( "Copy" );
         mnuCopy.setIcon( new ImageIcon( "src/assets/icons/copy.png" ) );
         mnuCopy.setMnemonic( 'C' );
-        mnuCopy.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_C, KeyEvent.CTRL_DOWN_MASK) );
-        popupMenu.add(mnuCopy);
+        mnuCopy.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK) );
 
-        JMenuItem mnuCut = new JMenuItem( "Cut" );
         mnuCut.setIcon( new ImageIcon( "src/assets/icons/cut.png" ) );
         mnuCut.setMnemonic( 't' );
-        mnuCut.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_X, KeyEvent.CTRL_DOWN_MASK) );
-        popupMenu.add(mnuCut);
+        mnuCut.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK) );
 
-        JMenuItem mnuPaste = new JMenuItem( "Paste" );
         mnuPaste.setIcon( new ImageIcon( "src/assets/icons/paste.png" ) );
         mnuPaste.setMnemonic( 'P' );
-        mnuPaste.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_V, KeyEvent.CTRL_DOWN_MASK) );
-        popupMenu.add(mnuPaste);
+        mnuPaste.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_DOWN_MASK) );
 
+        popupMenu.add(mnuUndo);
+        popupMenu.add(mnuRedo);
+        popupMenu.addSeparator();
+        popupMenu.add(mnuCopy);
+        popupMenu.add(mnuCut);
+        popupMenu.add(mnuPaste);
 
         return popupMenu;
     }
 
 
     private void itemInfosUserListener(ActionEvent event) {
-        JOptionPane.showMessageDialog(this, "Connecté");
+        JOptionPane.showMessageDialog(this, DatabaseConnexion.testData());
     }
 
     private void itemUpdateListener(ActionEvent event) {

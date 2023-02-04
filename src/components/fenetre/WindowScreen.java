@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class WindowScreen extends JFrame {
     private final int screenW;
@@ -44,6 +45,7 @@ public class WindowScreen extends JFrame {
 
         JMenu menuUser = new JMenu("Action");
         JMenu menuStore = new JMenu("Magasin");
+        JMenu test = new JMenu(DatabaseConnexion.testData().get(0));
 
         menuUser.setMnemonic('U');
         menuStore.setMnemonic('M');
@@ -78,6 +80,9 @@ public class WindowScreen extends JFrame {
 
         menuBar.add(menuUser);
         menuBar.add(menuStore);
+        menuBar.add(test);
+
+
         return menuBar;
     }
 
@@ -127,14 +132,11 @@ public class WindowScreen extends JFrame {
     private JSplitPane createSplitPane() {
 
         JScrollPane leftPane = new JScrollPane(new JTree());
-        JScrollPane centralPane = new JScrollPane();
-        JScrollPane rightPane = new JScrollPane(new JTree());
+        JScrollPane rightPane = new JScrollPane();
 
         JPopupMenu test = this.createPopupMenu();
 
-        leftPane.setPreferredSize(new Dimension((int) (this.screenW*0.15), 0));
-
-        centralPane.setPreferredSize(new Dimension((int) (this.screenW*0.60), 0));
+        leftPane.setPreferredSize(new Dimension((int) (this.screenW*0.25), 0));
 
         leftPane.addMouseListener(new MouseAdapter() {
             @Override public void mousePressed(MouseEvent event) {
@@ -144,9 +146,8 @@ public class WindowScreen extends JFrame {
             }
         } );
 
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPane, centralPane);
 
-        return new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, splitPane, rightPane);
+        return new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPane, rightPane);
     }
 
 

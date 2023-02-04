@@ -1,0 +1,10 @@
+
+q
+java:S2095"OUse try-with-resources or close this "PreparedStatement" in a "finally" clause.(ËÀµÀûÿÿÿÿ8®Äá0
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(ÛäıÏøÿÿÿÿ8®Äá0
+U	java:S106"9Replace this use of System.out or System.err by a logger.(åş¿ç8 ®Äá0
+S
+java:S6437"6Revoke and change this password, as it is compromised.(ÅÛ8¡®Äá0
+Z	java:S106"9Replace this use of System.out or System.err by a logger.(¥¢ƒüÿÿÿÿ8£®Äá0
+T	java:S106"9Replace this use of System.out or System.err by a logger.(èÚw8¤®Äá0
+Z	java:S106!"9Replace this use of System.out or System.err by a logger.(¤Ñƒµÿÿÿÿÿ8¥®Äá0

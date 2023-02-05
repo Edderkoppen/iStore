@@ -49,6 +49,50 @@ public class DatabaseConnexion {
         return listResult;
     }
 
+    public static ArrayList<String> querieStoreInfos() {
+        String querie = "select s.store_name, u.first_name, u.surname from store s\n" +
+                "inner join user u on s.id_store = u.id_store;";
+        ArrayList<String> listResult = new ArrayList<>();
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+
+            while (res.next()) {
+                listResult.add(res.getString("store_name"));
+                listResult.add(res.getString("first_name") + " " + res.getString("surname"));
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+
+        return listResult;
+    }
+
+
+    public static ArrayList<String> querieStoreName() {
+        String querie = "select store_name from store;";
+        ArrayList<String> listResult = new ArrayList<>();
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+
+            while (res.next()) {
+                listResult.add(res.getString("store_name"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+
+        return listResult;
+    }
+
     public static ArrayList<String> querieInventory() {
         String querie = "select i.item_name, i.item_price, s.store_name, inv.quantity from item as i\n" +
                 "join inventory as inv on i.id_item = inv.id_item\n" +

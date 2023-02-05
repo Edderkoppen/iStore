@@ -3,15 +3,16 @@ package components.fenetre;
 import connexion.DatabaseConnexion;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultMutableTreeNode;
 import java.awt.*;
 import java.awt.event.*;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class WindowScreen extends JFrame {
     private final int screenW;
     private final int screenH;
     private final Font font;
+    private JPanel panel;
 
     public WindowScreen(int width, int height) {
         super("Istore");
@@ -32,11 +33,15 @@ public class WindowScreen extends JFrame {
         this.setJMenuBar(createMenuBar());
 
         JPanel contentPane = (JPanel) this.getContentPane();
+        this.panel = new JPanel();
+        this.panel.add(new JLabel("coucou"));
+        this.panel.setBackground(Color.blue);
 
         contentPane.setLayout(new BorderLayout());
         contentPane.add(createToolBar(), BorderLayout.NORTH);
-        contentPane.add(createSplitPane());
+        contentPane.add(createSplitPane(createNode(), panel));
 
+//        this.setContentPane(this.panel);
     }
 
 
@@ -86,6 +91,45 @@ public class WindowScreen extends JFrame {
         return menuBar;
     }
 
+    private JPanel createForm(JPanel pan) {
+
+
+        int labelW = 150;
+        int labelH = 100;
+        int buttonW = 150;
+        int buttonH = 100;
+
+        JLabel nameLabel = new JLabel("Prénom :", SwingConstants.CENTER);
+        JLabel surnameLabel = new JLabel("Nom :", SwingConstants.CENTER);
+        JLabel emailLabel = new JLabel("Email :", SwingConstants.CENTER);
+        JLabel passwordLabel = new JLabel("Mot de passe :", SwingConstants.CENTER);
+
+        JTextField nameField = new JTextField();
+        JTextField surnameField = new JTextField();
+        JTextField emailField = new JTextField();
+        JPasswordField passwordField = new JPasswordField();
+
+        JButton submitButton = new JButton("Se connecter");
+
+        nameLabel.setBounds(100, 50, labelW, labelH);
+        nameField.setBounds(100, 70, labelW, labelH);
+
+//        submitButton.setBounds(((this.screenW)/2)-(buttonW/2), (int) (this.screenH*0.5 - buttonH/2), buttonW, buttonH);
+
+        pan.setLayout(null);
+        pan.setBackground(Color.CYAN);
+        pan.add(nameLabel);
+        pan.add(nameField);
+//        pan.add(submitButton);
+//        pan.add(surnameLabel);
+//        pan.add(surnameField);
+//        pan.add(emailLabel);
+//        pan.add(emailField);
+//        pan.add(passwordLabel);
+//        pan.add(passwordField);
+
+        return pan;
+    }
 
 
     private JToolBar createToolBar() {
@@ -108,7 +152,7 @@ public class WindowScreen extends JFrame {
         btnPaste.setToolTipText( "Coller" );
         btnExit.setToolTipText( "Quitter" );
 
-        buttonNew.addActionListener(this::toolBarNewListener);
+        buttonNew.addActionListener(event -> changePanel(this.panel, event));
 
         toolBar.add(buttonNew);
         toolBar.addSeparator();
@@ -129,65 +173,35 @@ public class WindowScreen extends JFrame {
     }
 
 
-    private JSplitPane createSplitPane() {
+    private JTree createNode() {
+        DefaultMutableTreeNode store = new DefaultMutableTreeNode("Magasins");
+        ArrayList<String> storeInfos = DatabaseConnexion.querieStoreInfos();
+        ArrayList<String> storeName = DatabaseConnexion.querieStoreName();
 
-        JScrollPane leftPane = new JScrollPane(new JTree());
-        JScrollPane rightPane = new JScrollPane();
+        DefaultMutableTreeNode storeNameTree = null;
 
-        JPopupMenu test = this.createPopupMenu();
+        for (String name : storeInfos) {
+            if(storeName.contains(name)) {
+                storeNameTree = new DefaultMutableTreeNode(name);
+                store.add(storeNameTree);
 
-        leftPane.setPreferredSize(new Dimension((int) (this.screenW*0.25), 0));
-
-        leftPane.addMouseListener(new MouseAdapter() {
-            @Override public void mousePressed(MouseEvent event) {
-                if (event.isPopupTrigger()) {
-                    test.show(event.getComponent(), event.getX(), event.getY());
-                }
+            } else {
+                storeNameTree.add(new DefaultMutableTreeNode(name));
             }
-        } );
+        }
 
-
-        return new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPane, rightPane);
+        return new JTree(store);
     }
 
 
-    private JPopupMenu createPopupMenu() {
-        JPopupMenu popupMenu = new JPopupMenu();
 
-        JMenuItem mnuUndo = new JMenuItem( "Undo" );
-        JMenuItem mnuRedo = new JMenuItem( "Redo" );
-        JMenuItem mnuCopy = new JMenuItem( "Copy" );
-        JMenuItem mnuCut = new JMenuItem( "Cut" );
-        JMenuItem mnuPaste = new JMenuItem( "Paste" );
+    private JSplitPane createSplitPane(JTree tree, JPanel pan) {
 
-        mnuUndo.setIcon( new ImageIcon( "src/assets/icons/undo.png" ) );
-        mnuUndo.setMnemonic( 'U' );
-        mnuUndo.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_Z, InputEvent.CTRL_DOWN_MASK) );
+        JScrollPane leftPane = new JScrollPane(tree);
+        JScrollPane rightPane = new JScrollPane(pan);
 
-        mnuRedo.setIcon( new ImageIcon( "src/assets/icons/redo.png" ) );
-        mnuRedo.setMnemonic( 'R' );
-        mnuRedo.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK) );
-
-        mnuCopy.setIcon( new ImageIcon( "src/assets/icons/copy.png" ) );
-        mnuCopy.setMnemonic( 'C' );
-        mnuCopy.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_C, InputEvent.CTRL_DOWN_MASK) );
-
-        mnuCut.setIcon( new ImageIcon( "src/assets/icons/cut.png" ) );
-        mnuCut.setMnemonic( 't' );
-        mnuCut.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.CTRL_DOWN_MASK) );
-
-        mnuPaste.setIcon( new ImageIcon( "src/assets/icons/paste.png" ) );
-        mnuPaste.setMnemonic( 'P' );
-        mnuPaste.setAccelerator( KeyStroke.getKeyStroke(KeyEvent.VK_V, InputEvent.CTRL_DOWN_MASK) );
-
-        popupMenu.add(mnuUndo);
-        popupMenu.add(mnuRedo);
-        popupMenu.addSeparator();
-        popupMenu.add(mnuCopy);
-        popupMenu.add(mnuCut);
-        popupMenu.add(mnuPaste);
-
-        return popupMenu;
+        leftPane.setPreferredSize(new Dimension((int) (this.screenW*0.25), 0));
+        return new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPane, rightPane);
     }
 
 
@@ -211,5 +225,10 @@ public class WindowScreen extends JFrame {
         JOptionPane.showMessageDialog(this, "Nouveau");
     }
 
-
+    private void changePanel(JPanel pan, ActionEvent event) {
+        this.panel.removeAll();
+        createForm(this.panel);
+        this.panel.setBackground(Color.MAGENTA);
+        this.panel.updateUI();
+    }
 }

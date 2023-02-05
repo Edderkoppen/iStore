@@ -34,7 +34,7 @@ public class WindowScreen extends JFrame {
 
         JPanel contentPane = (JPanel) this.getContentPane();
 
-        contentPane.add(PageConnexionPanel.createForm());
+        contentPane.add(new PageConnexionPanel(this.screenW, this.screenH));
         pageConnexion(contentPane);
 
 
@@ -43,7 +43,7 @@ public class WindowScreen extends JFrame {
     private void pageConnexion(JPanel pan) {
         this.setJMenuBar(MenuBarSample.createMenuBar());
         pan.add(ToolBarSample.createToolBar(pan), BorderLayout.NORTH);
-        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), PageConnexionPanel.createForm(), this.screenW));
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), new PageConnexionPanel((int) (screenW*0.66), (int) (screenH*0.66)), this.screenW));
     }
 
 }

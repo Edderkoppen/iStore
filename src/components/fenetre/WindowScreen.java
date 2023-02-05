@@ -4,6 +4,7 @@ import components.menus.MenuBarSample;
 import components.menus.SplitPaneSample;
 import components.menus.ToolBarSample;
 import components.menus.TreeSample;
+import components.pages.InventoryPanel;
 import components.pages.PageConnexionPanel;
 
 import javax.swing.*;
@@ -34,8 +35,8 @@ public class WindowScreen extends JFrame {
 
         JPanel contentPane = (JPanel) this.getContentPane();
 
-        contentPane.add(new PageConnexionPanel(this.screenW, this.screenH));
-//        pageConnexion(contentPane);
+        contentPane.add(new InventoryPanel(this.screenW,this.screenH));
+        pageInventory(contentPane);
 
 
     }
@@ -45,5 +46,9 @@ public class WindowScreen extends JFrame {
         pan.add(ToolBarSample.createToolBar(pan), BorderLayout.NORTH);
         pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), new PageConnexionPanel((int) (screenW*0.66), (int) (screenH*0.66)), this.screenW));
     }
-
+    private void pageInventory(JPanel pan) {
+        this.setJMenuBar(MenuBarSample.createMenuBar());
+        pan.add(ToolBarSample.createToolBar(pan), BorderLayout.NORTH);
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), new InventoryPanel((int) (screenW*0.66), (int) (screenH*0.66)), this.screenW));
+    }
 }

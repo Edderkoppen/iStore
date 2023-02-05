@@ -5,16 +5,19 @@ import java.util.ArrayList;
 
 public class DatabaseConnexion {
     private static Connection database;
+    private final String BDD;
+    private final String url;
+    private final String user;
+    private final String password;
     public DatabaseConnexion() {
-        String BDD = "istore";
-        String url = "jdbc:mysql://localhost:3306/" + BDD;
-        String user = "root";
-        String passwd = "root";
+        this.BDD = "istore";
+        this.url = "jdbc:mysql://localhost:3306/" + BDD;
+        this.user = "root";
+        this.password = "root";
 
         try {
-
             Class.forName("com.mysql.cj.jdbc.Driver");
-            this.database = DriverManager.getConnection(url, user, passwd);
+            database = DriverManager.getConnection(url, user, password);
             System.out.println("Connecté à la base");
 
         } catch (ClassNotFoundException e) {
@@ -26,7 +29,13 @@ public class DatabaseConnexion {
         }
     }
 
-    public static ArrayList<String> testData() {
+
+    /**
+     * Récupère les informations de l'utilisateur.
+     *
+     * @return une arrayList contenant l'email, le prénom et le nom de l'utilisateur.
+     */
+    public static ArrayList<String> getUserInfos() {
         String querie = "SELECT email, first_name, surname FROM user where first_name like 'mathieu';";
         ArrayList<String> listResult = new ArrayList<>();
 
@@ -35,7 +44,6 @@ public class DatabaseConnexion {
             ResultSet res = stmt.executeQuery(querie);
 
             while (res.next()) {
-
                 listResult.add(res.getString("email"));
                 listResult.add(res.getString("first_name"));
                 listResult.add(res.getString("surname"));
@@ -43,15 +51,22 @@ public class DatabaseConnexion {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-
         }
 
         return listResult;
     }
 
-    public static ArrayList<String> querieStoreInfos() {
+
+    /**
+     * Récupère les noms des magasins, et les noms et prénoms des utilisateurs en ayant l'accès.
+     *
+     * @return une arrayList contenant toutes ces informations.
+     */
+    public static ArrayList<String> getStoreInfos() {
+
         String querie = "select s.store_name, u.first_name, u.surname from store s\n" +
-                "inner join user u on s.id_store = u.id_store;";
+                        "inner join user u on s.id_store = u.id_store;";
+
         ArrayList<String> listResult = new ArrayList<>();
 
         try {
@@ -61,19 +76,20 @@ public class DatabaseConnexion {
             while (res.next()) {
                 listResult.add(res.getString("store_name"));
                 listResult.add(res.getString("first_name") + " " + res.getString("surname"));
-
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
-
         }
-
         return listResult;
     }
 
 
-    public static ArrayList<String> querieStoreName() {
+    /**
+     * Récupère l'ensemble des noms des magasins de la base de donnée.
+     *
+     * @return une arrayList contenant l'ensemble des noms de magasin.
+     */
+    public static ArrayList<String> getStoreName() {
         String querie = "select store_name from store;";
         ArrayList<String> listResult = new ArrayList<>();
 
@@ -93,11 +109,18 @@ public class DatabaseConnexion {
         return listResult;
     }
 
-    public static ArrayList<String> querieInventory() {
+
+    /**
+     * Récupère l'ensemble de l'inventaire d'un magasin donné.
+     * @param storeName   nom du magasin ur lequel on recherche l'inventaire.
+     *
+     * @return une arrayList contenant le nom du magasin, le nom de l'item, son prix et sa quantité.
+     */
+    public static ArrayList<String> getInventory(String storeName) {
         String querie = "select i.item_name, i.item_price, s.store_name, inv.quantity from item as i\n" +
                 "join inventory as inv on i.id_item = inv.id_item\n" +
                 "join store as s on inv.id_store = s.id_store\n" +
-                "where s.id_store = 1;";
+                "where s.store_name like '" + storeName + "';";
         ArrayList<String> listResult = new ArrayList<>();
 
         try {
@@ -120,13 +143,18 @@ public class DatabaseConnexion {
     }
 
 
+    /**
+     * Ferme la connection à la base de donnée.
+     */
     public void closeConn(){
 
         try {
+            System.out.println("Connexion à la base en cours de fermeture ...");
             database.close();
+            System.out.println("Connexion fermée");
 
         } catch(SQLException e) {
-            System.out.println("La connexion n'a pas été fermée correctement");
+            System.out.println("La connexion n'a pas été fermée correctement ...");
         }
     }
 

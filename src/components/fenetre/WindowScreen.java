@@ -35,10 +35,7 @@ public class WindowScreen extends JFrame {
 
         JPanel contentPane = (JPanel) this.getContentPane();
 
-        contentPane.add(new InventoryPanel(this.screenW,this.screenH));
-        pageInventory(contentPane);
-
-
+        contentPane.add(new PageConnexionPanel(this.screenW,this.screenH));
     }
 
     private void pageConnexion(JPanel pan) {

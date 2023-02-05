@@ -4,44 +4,40 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PageConnexionPanel extends JPanel {
-    public static JPanel createForm() {
 
-        JPanel pan = new JPanel();
-        int labelW = 150;
-        int labelH = 100;
-        int buttonW = 150;
-        int buttonH = 100;
+    private final int panelW;
+    private final int panelH;
 
-        JLabel nameLabel = new JLabel("Prénom :", SwingConstants.CENTER);
-        JLabel surnameLabel = new JLabel("Nom :", SwingConstants.CENTER);
-        JLabel emailLabel = new JLabel("Email :", SwingConstants.CENTER);
-        JLabel passwordLabel = new JLabel("Mot de passe :", SwingConstants.CENTER);
+    public PageConnexionPanel(int panelW, int panelH) {
+        super(null);
+        this.panelW = panelW;
+        this.panelH = panelH;
 
-        JTextField nameField = new JTextField();
-        JTextField surnameField = new JTextField();
-        JTextField emailField = new JTextField();
+        int widthComponent = 200;
+        int heightComponent = 30;
+
+        JLabel userNameLabel = new JLabel("Utilisateur :");
+        JLabel passwordLabel = new JLabel("Mot de passe :");
+
+        JTextField userNameField = new JTextField();
         JPasswordField passwordField = new JPasswordField();
 
-        JButton submitButton = new JButton("Se connecter");
+        JButton submit = new JButton("Se connecter");
 
-        nameLabel.setBounds(100, 50, labelW, labelH);
-        nameField.setBounds(100, 70, labelW, labelH);
+        userNameLabel.setBounds((int) (this.panelW*0.5) - widthComponent/2, (int) (this.panelH*0.25) - heightComponent/2, widthComponent, heightComponent);
+        userNameField.setBounds((int) (this.panelW*0.6) - widthComponent/2, (int) (this.panelH*0.25) - heightComponent/2, widthComponent, heightComponent);
 
-//        submitButton.setBounds(((this.screenW)/2)-(buttonW/2), (int) (this.screenH*0.5 - buttonH/2), buttonW, buttonH);
+        passwordLabel.setBounds((int) (this.panelW*0.5) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
+        passwordField.setBounds((int) (this.panelW*0.6) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
 
-        pan.setLayout(null);
-        pan.setBackground(Color.CYAN);
-        pan.add(nameLabel);
-        pan.add(nameField);
-//        pan.add(submitButton);
-//        pan.add(surnameLabel);
-//        pan.add(surnameField);
-//        pan.add(emailLabel);
-//        pan.add(emailField);
-//        pan.add(passwordLabel);
-//        pan.add(passwordField);
+        submit.setBounds((int) (this.panelW*0.5) - widthComponent/2, (int) (this.panelH*0.75) - heightComponent/2, widthComponent, heightComponent);
 
-        return pan;
+        this.add(userNameLabel);
+        this.add(userNameField);
+        this.add(passwordLabel);
+        this.add(passwordField);
+        this.add(submit);
+
+        this.setBackground(Color.orange);
     }
-
 }

@@ -4,6 +4,7 @@ import components.menus.MenuBarSample;
 import components.menus.SplitPaneSample;
 import components.menus.ToolBarSample;
 import components.menus.TreeSample;
+import components.pages.PageConnexionPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,34 +33,17 @@ public class WindowScreen extends JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         JPanel contentPane = (JPanel) this.getContentPane();
-        this.panel = new JPanel();
-        this.panel.add(new JLabel("coucou"));
-        this.panel.setBackground(Color.blue);
 
-        int coucou = 2;
-
-        if(coucou == 1) {
-            pageConnexion(contentPane);
-
-        } else {
-            test(contentPane);
-        }
+        contentPane.add(PageConnexionPanel.createForm());
+        pageConnexion(contentPane);
 
 
     }
 
-
-    private void pageConnexion(JPanel test) {
+    private void pageConnexion(JPanel pan) {
         this.setJMenuBar(MenuBarSample.createMenuBar());
-        test.add(ToolBarSample.createToolBar(test), BorderLayout.NORTH);
-        test.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), panel, this.screenW));
+        pan.add(ToolBarSample.createToolBar(pan), BorderLayout.NORTH);
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), PageConnexionPanel.createForm(), this.screenW));
     }
 
-    private void test(JPanel test2) {
-        test2.removeAll();
-        test2.add(new JLabel("wesh"));
-        test2.setBackground(Color.CYAN);
-        test2.updateUI();
-
-    }
 }

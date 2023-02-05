@@ -3,10 +3,10 @@ package components.pages;
 import javax.swing.*;
 import java.awt.*;
 
-public class PageConnexion extends JPanel {
-    private JPanel createForm(JPanel pan) {
+public class PageConnexionPanel extends JPanel {
+    public static JPanel createForm() {
 
-
+        JPanel pan = new JPanel();
         int labelW = 150;
         int labelH = 100;
         int buttonW = 150;

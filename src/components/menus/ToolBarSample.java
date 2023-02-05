@@ -1,5 +1,7 @@
 package components.menus;
 
+import components.fenetre.WindowScreen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,7 +49,7 @@ public class ToolBarSample {
 
     private static void changePanel(JPanel pan, ActionEvent event) {
         pan.removeAll();
-        pan.setBackground(Color.MAGENTA);
+//        WindowScreen.pageConnexion();
         pan.updateUI();
     }
 }

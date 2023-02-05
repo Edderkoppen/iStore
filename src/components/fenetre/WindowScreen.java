@@ -5,6 +5,7 @@ import components.menus.SplitPaneSample;
 import components.menus.ToolBarSample;
 import components.menus.TreeSample;
 import components.pages.PageConnexionPanel;
+import components.pages.PageInventoryPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,8 +35,8 @@ public class WindowScreen extends JFrame {
 
         JPanel contentPane = (JPanel) this.getContentPane();
 
-        contentPane.add(PageConnexionPanel.createForm());
-        pageConnexion(contentPane);
+        contentPane.add(PageInventoryPanel.createInventoryPage());
+//        pageConnexion(contentPane);
 
 
     }

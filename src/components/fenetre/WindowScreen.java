@@ -33,19 +33,21 @@ public class WindowScreen extends JFrame {
         this.getContentPane().setBackground(Color.darkGray);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
+
+        this.setJMenuBar(MenuBarSample.createMenuBar());
         JPanel contentPane = (JPanel) this.getContentPane();
 
-        contentPane.add(new PageConnexionPanel(this.screenW,this.screenH));
+//        contentPane.add(new PageConnexionPanel(this.screenW,this.screenH));
+        pageConnexion(contentPane, this.screenW, this.screenH);
     }
 
-    private void pageConnexion(JPanel pan) {
-        this.setJMenuBar(MenuBarSample.createMenuBar());
+    public static void pageConnexion(JPanel pan, int screenW, int screenH) {
+        JPanel test = new JPanel();
         pan.add(ToolBarSample.createToolBar(pan), BorderLayout.NORTH);
-        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), new PageConnexionPanel((int) (screenW*0.66), (int) (screenH*0.66)), this.screenW));
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), new PageConnexionPanel((int) (screenW*0.66), (int) (screenH*0.66), pan), screenW));
     }
-    private void pageInventory(JPanel pan) {
-        this.setJMenuBar(MenuBarSample.createMenuBar());
+    public static void pageInventory(JPanel pan, int screenW, int screenH) {
         pan.add(ToolBarSample.createToolBar(pan), BorderLayout.NORTH);
-        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), new InventoryPanel((int) (screenW*0.66), (int) (screenH*0.66)), this.screenW));
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), new InventoryPanel((int) (screenW*0.66), (int) (screenH*0.66)), screenW));
     }
 }

@@ -27,7 +27,7 @@ public class ToolBarSample {
         btnPaste.setToolTipText( "Coller" );
         btnExit.setToolTipText( "Quitter" );
 
-        buttonNew.addActionListener(event -> changePanel(pan, event));
+        buttonNew.addActionListener(event -> changePanel(pan,700, 500, event));
 
         toolBar.add(buttonNew);
         toolBar.addSeparator();
@@ -47,9 +47,9 @@ public class ToolBarSample {
         return toolBar;
     }
 
-    private static void changePanel(JPanel pan, ActionEvent event) {
+    private static void changePanel(JPanel pan, int screenW, int screenH, ActionEvent event) {
         pan.removeAll();
-//        WindowScreen.pageConnexion();
+        WindowScreen.pageInventory(pan, screenW, screenH);
         pan.updateUI();
     }
 }

@@ -1,17 +1,23 @@
 package components.pages;
 
+import components.fenetre.WindowScreen;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PageConnexionPanel extends JPanel {
 
     private final int panelW;
     private final int panelH;
+    private final JPanel pan;
 
-    public PageConnexionPanel(int panelW, int panelH) {
+    public PageConnexionPanel(int panelW, int panelH, JPanel pan) {
         super(null);
         this.panelW = panelW;
         this.panelH = panelH;
+        this.pan = pan;
 
         int widthComponent = 200;
         int heightComponent = 30;
@@ -31,6 +37,7 @@ public class PageConnexionPanel extends JPanel {
         passwordField.setBounds((int) (this.panelW*0.6) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
 
         submit.setBounds((int) (this.panelW*0.5) - widthComponent/2, (int) (this.panelH*0.75) - heightComponent/2, widthComponent, heightComponent);
+        submit.addActionListener(event -> changePanel(pan, this.panelW, this.panelH, event));
 
         this.add(userNameLabel);
         this.add(userNameField);
@@ -39,5 +46,15 @@ public class PageConnexionPanel extends JPanel {
         this.add(submit);
 
         this.setBackground(Color.orange);
+    }
+
+//    private void testListener(ActionEvent event) {
+//        System.out.println("cliqué");
+//    }
+
+    private static void changePanel(JPanel pan, int screenW, int screenH, ActionEvent event) {
+        pan.removeAll();
+        WindowScreen.pageInventory(pan, screenW, screenH);
+        pan.updateUI();
     }
 }

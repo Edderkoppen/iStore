@@ -29,6 +29,42 @@ public class DatabaseConnexion {
         }
     }
 
+    public static String getPseudo(String username) {
+        String querie = "SELECT pseudo FROM user where pseudo like '" + username + "';";
+        String result = null;
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+            if(res.next()) {
+                result = res.getString("pseudo");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+
+
+    public static String getPassword(String password) {
+        String querie = "SELECT password FROM user where password like '" + password + "';";
+        String result = null;
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+            if(res.next()) {
+                result = res.getString("password");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
 
     /**
      * Récupère les informations de l'utilisateur.

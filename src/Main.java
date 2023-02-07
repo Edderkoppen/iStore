@@ -10,7 +10,7 @@ public class Main {
         int width  = (int)dimension.getWidth();
         int height = (int)dimension.getHeight();
 
-        DatabaseConnexion conn = new DatabaseConnexion();
+        //DatabaseConnexion conn = new DatabaseConnexion();
 
         WindowScreen window = new WindowScreen(width, height);
         window.setVisible(true);

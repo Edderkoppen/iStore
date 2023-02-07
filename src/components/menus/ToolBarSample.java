@@ -31,7 +31,7 @@ public class ToolBarSample extends JToolBar {
         btnPaste.setToolTipText( "Coller" );
         btnExit.setToolTipText( "Quitter" );
 
-        buttonNew.addActionListener(event -> WindowScreen.pageInventoryRedraw(this.frame, this.pan,700, 500, event));
+//        buttonNew.addActionListener(event -> WindowScreen.pageInventoryRedraw(this.frame, this.pan,700, 500));
 
         this.add(buttonNew);
         this.addSeparator();

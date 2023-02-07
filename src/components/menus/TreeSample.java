@@ -37,17 +37,22 @@ public class TreeSample extends JTree {
             public void mousePressed(MouseEvent e) {
                 int selRow = storeTree.getRowForLocation(e.getX(), e.getY());
                 TreePath selPath = storeTree.getPathForLocation(e.getX(), e.getY());
-                if(selRow == 2) {
-                    if(e.getClickCount() == 2) {
-                        Object lastNode = selPath.getLastPathComponent();
-                        String stringLastNode = valueOf(lastNode);
-                        if(stringLastNode.matches("[a-z-A-Z]{1,30}\\s[a-z-A-Z]{1,30}")) {
-                            String[] splitString = stringLastNode.split("\\s");
-                            ArrayList<String> informations = DatabaseConnexion.getUserInfos(splitString[0], splitString[1]);
-                            WindowScreen.pageEmployeeRedraw(frame, pan, screenW, screenH, informations.get(1), informations.get(2));
-                        }
+                if(selRow == 2 && e.getClickCount() == 2) {
+                    Object lastNode = selPath.getLastPathComponent();
+                    String stringLastNode = valueOf(lastNode);
 
+                    if(stringLastNode.matches("[a-z-A-Z]{1,30}\\s[a-z-A-Z]{1,30}")) {
+                        String[] splitString = stringLastNode.split("\\s");
+                        ArrayList<String> informations = DatabaseConnexion.getUserInfos(splitString[0], splitString[1]);
+                        WindowScreen.pageEmployeeRedraw(frame, pan, screenW, screenH, informations.get(1), informations.get(2));
                     }
+
+                } else if(selRow == 1 && e.getClickCount() == 2) {
+
+                    Object lastNode = selPath.getLastPathComponent();
+                    String stringLastNode = valueOf(lastNode);
+                    WindowScreen.pageInventoryRedraw(frame, pan, screenW, screenH);
+
                 }
             }
         });

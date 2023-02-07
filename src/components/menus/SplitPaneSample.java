@@ -10,7 +10,7 @@ public class SplitPaneSample extends JSplitPane {
         JScrollPane leftPane = new JScrollPane(tree);
         JScrollPane rightPane = new JScrollPane(pan);
 
-        leftPane.setPreferredSize(new Dimension((int) (screenW*0.25), 0));
+        leftPane.setPreferredSize(new Dimension((int) (screenW*0.40), 0));
 
         return new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPane, rightPane);
     }

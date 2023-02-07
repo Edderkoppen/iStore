@@ -154,6 +154,31 @@ public class DatabaseConnexion {
         return listResult;
     }
 
+    public static ArrayList<String> getStoreInventory(String store) {
+        String querie = "select i.item_picture, i.item_name, i.item_price, iv.quantity from item i\n" +
+                "join inventory iv on i.id_item = iv.id_item\n" +
+                "join store s on iv.id_store = s.id_store\n" +
+                "where s.store_name like '" + store + "';";
+        ArrayList<String> listResult = new ArrayList<>();
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+
+            while (res.next()) {
+                listResult.add(res.getString("item_picture"));
+                listResult.add(res.getString("item_name"));
+                listResult.add(res.getString("item_price"));
+                listResult.add(res.getString("quantity"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return listResult;
+    }
+
     /**
      * Récupère les noms des magasins, et les noms et prénoms des utilisateurs en ayant l'accès.
      *

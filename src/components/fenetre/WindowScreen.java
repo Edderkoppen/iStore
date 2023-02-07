@@ -17,6 +17,7 @@ public class WindowScreen extends JFrame {
     private final Font font;
     private JPanel panel;
     public static int userId;
+    public static String store;
 
     public WindowScreen(int width, int height) {
         super("Istore");
@@ -37,9 +38,6 @@ public class WindowScreen extends JFrame {
 
         JPanel contentPane = (JPanel) this.getContentPane();
 
-        System.out.println(screenW);
-        System.out.println(screenH);
-//        this.setJMenuBar(new MenuBarSample(contentPane, this.screenW, this.screenH, userId));
         contentPane.add(new WelcomePanel(this.screenW ,this.screenH, this, new InscriptionPanel(this.screenW/2, this.screenH/2), new ConnexionPanel(this, this.screenW/2, this.screenH/2, contentPane)));
 
     }
@@ -52,14 +50,14 @@ public class WindowScreen extends JFrame {
         pan.updateUI();
     }
 
-    public static void pageConnexionRedraw(JFrame frame, JPanel pan, int screenW, int screenH, ActionEvent event) {
+    public static void pageConnexionRedraw(JFrame frame, JPanel pan, int screenW, int screenH) {
         pan.removeAll();
         frame.setJMenuBar(null);
         pan.add(new WelcomePanel(screenW*2 ,screenH*2, frame, new InscriptionPanel(screenW, screenH), new ConnexionPanel(frame, screenW, screenH, pan)));
         pan.updateUI();
     }
 
-    public static void pageInventoryRedraw(JFrame frame, JPanel pan, int screenW, int screenH, ActionEvent event) {
+    public static void pageInventoryRedraw(JFrame frame, JPanel pan, int screenW, int screenH) {
         pan.removeAll();
         frame.setJMenuBar(new MenuBarSample(frame, pan, screenW, screenH, userId));
         pan.add(new ToolBarSample(frame, pan), BorderLayout.WEST);

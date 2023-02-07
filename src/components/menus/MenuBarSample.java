@@ -44,7 +44,7 @@ public class MenuBarSample extends JMenuBar {
         itemDisconnect.setMnemonic('C');
         itemDisconnect.setIcon(new ImageIcon("src/assets/icons/about.png"));;
         itemDisconnect.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
-        itemDisconnect.addActionListener(event -> WindowScreen.pageConnexionRedraw(frame, pan, screenW, screenH, event));
+        itemDisconnect.addActionListener(event -> WindowScreen.pageConnexionRedraw(frame, pan, screenW, screenH));
 
 //        itemSee.addActionListener(event -> WindowScreen.pageEmployeeRedraw(frame, pan, screenW, screenH));
 

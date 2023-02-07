@@ -20,7 +20,7 @@ public class ConnexionPanel extends JPanel {
         this.pan = pan;
         this.frame = frame;
 
-        int widthComponent = 200;
+        int widthComponent = 150;
         int heightComponent = 30;
 
         JLabel userNameLabel = new JLabel("Utilisateur :");
@@ -31,20 +31,20 @@ public class ConnexionPanel extends JPanel {
 
         JButton submit = new JButton("Se connecter");
 
-        userNameLabel.setBounds((int) (this.panelW*0.45) - widthComponent/2, (int) (this.panelH*0.25) - heightComponent/2, widthComponent, heightComponent);
-        userNameField.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.25) - heightComponent/2, widthComponent, heightComponent);
+        userNameLabel.setBounds((int) (this.panelW*0.40) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
+        userNameField.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
 
-        passwordLabel.setBounds((int) (this.panelW*0.45) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
-        passwordField.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
+        passwordLabel.setBounds((int) (this.panelW*0.35) - widthComponent/2, (int) (this.panelH*0.50) - heightComponent/2, widthComponent, heightComponent);
+        passwordField.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.50) - heightComponent/2, widthComponent, heightComponent);
 
-        submit.setBounds((int) (this.panelW*0.5) - widthComponent/2, (int) (this.panelH*0.75) - heightComponent/2, widthComponent, heightComponent);
+        submit.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
         submit.addActionListener(event -> {
             String pseudo = DatabaseConnexion.getPseudo(userNameField.getText());
             String password = DatabaseConnexion.getPassword(new String(passwordField.getPassword()));
 
             if (pseudo != null && password != null && userNameField.getText().matches(pseudo) && new String(passwordField.getPassword()).matches(password)) {
                 WindowScreen.userId =  DatabaseConnexion.getUserId(pseudo);
-                WindowScreen.pageInventoryRedraw(this.frame, this.pan, this.panelW, this.panelH, event);
+                WindowScreen.pageInventoryRedraw(this.frame, this.pan, this.panelW, this.panelH);
 
             } else {
                 JOptionPane.showMessageDialog(this.pan, "Nom d'utilisateur ou mot de passe incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);

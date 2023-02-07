@@ -1,0 +1,11 @@
+
+H
+java:S1481$"-Remove this unused "increase" local variable.(ë²ÚÇÿÿÿÿÿ
+H
+java:S1481%"-Remove this unused "decrease" local variable.(Ç’´ôþÿÿÿÿ
+V	java:S125+"<This block of commented-out lines of code should be removed.(––‘åÿÿÿÿÿ
+Q	java:S125-"<This block of commented-out lines of code should be removed.(¨ß†—
+Q	java:S1252"<This block of commented-out lines of code should be removed.(µ³éß
+Q	java:S1254"<This block of commented-out lines of code should be removed.(™ÐÓª
+B
+java:S1128"%Remove this unused import 'java.awt'.(ï´µ©8‰ôùïâ0

@@ -11,12 +11,15 @@ import java.awt.event.KeyEvent;
 public class MenuBarSample extends JPanel {
     private static JFrame frame;
 
-    public static JMenuBar createMenuBar(JPanel pan, int screenW, int screenH) {
+    public static JMenuBar createMenuBar(JPanel pan, int screenW, int screenH, int user) {
         JMenuBar menuBar = new JMenuBar();
 
         JMenu menuUser = new JMenu("Action");
         JMenu menuStore = new JMenu("Magasin");
-        JMenu test = new JMenu(DatabaseConnexion.getUserInfos().get(0));
+        JMenu test = null;
+        if(user != 0) {
+            test = new JMenu(DatabaseConnexion.getUserInfos().get(0));
+        }
 
         menuUser.setMnemonic('U');
         menuStore.setMnemonic('M');
@@ -51,7 +54,9 @@ public class MenuBarSample extends JPanel {
 
         menuBar.add(menuUser);
         menuBar.add(menuStore);
-        menuBar.add(test);
+        if(test != null) {
+            menuBar.add(test);
+        }
 
 
         return menuBar;

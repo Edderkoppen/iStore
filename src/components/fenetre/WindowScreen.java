@@ -37,7 +37,7 @@ public class WindowScreen extends JFrame {
 
         JPanel contentPane = (JPanel) this.getContentPane();
 
-        this.setJMenuBar(MenuBarSample.createMenuBar(contentPane, this.screenW, this.screenH));
+        this.setJMenuBar(MenuBarSample.createMenuBar(contentPane, this.screenW, this.screenH, userId));
 
         pageConnexion(contentPane, this.screenW, this.screenH);
     }

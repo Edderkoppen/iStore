@@ -1,7 +1,8 @@
 import components.fenetre.WindowScreen;
 import connexion.DatabaseConnexion;
 
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,6 +12,7 @@ public class Main {
         int height = (int)dimension.getHeight();
 
         DatabaseConnexion conn = new DatabaseConnexion();
+
 
         WindowScreen window = new WindowScreen(width, height);
         window.setVisible(true);

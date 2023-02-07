@@ -1,5 +1,6 @@
 package components.menus;
 
+import components.fenetre.WindowScreen;
 import connexion.DatabaseConnexion;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ import static java.lang.String.valueOf;
 
 public class TreeSample extends JTree {
 
-    public static JTree createTree(String nameStore) {
+    public static JTree createTree(String nameStore, JFrame frame, JPanel pan, int screenW, int screenH) {
         DefaultMutableTreeNode store = new DefaultMutableTreeNode("Magasins");
         ArrayList<String> storeInfos = DatabaseConnexion.getStoreInfos(nameStore);
         ArrayList<String> storeName = DatabaseConnexion.getStoreName();
@@ -31,36 +32,25 @@ public class TreeSample extends JTree {
             }
         }
 
-        JTree test = new JTree(store);
-        MouseListener ml = new MouseAdapter() {
+        JTree storeTree = new JTree(store);
+        storeTree.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
-                int selRow = test.getRowForLocation(e.getX(), e.getY());
-                TreePath selPath = test.getPathForLocation(e.getX(), e.getY());
+                int selRow = storeTree.getRowForLocation(e.getX(), e.getY());
+                TreePath selPath = storeTree.getPathForLocation(e.getX(), e.getY());
                 if(selRow == 2) {
                     if(e.getClickCount() == 2) {
                         Object lastNode = selPath.getLastPathComponent();
                         String stringLastNode = valueOf(lastNode);
                         if(stringLastNode.matches("[a-z-A-Z]{1,30}\\s[a-z-A-Z]{1,30}")) {
-                            System.out.println(stringLastNode);
+                            String[] splitString = stringLastNode.split("\\s");
+                            ArrayList<String> informations = DatabaseConnexion.getUserInfos(splitString[0], splitString[1]);
+                            WindowScreen.pageEmployeeRedraw(frame, pan, screenW, screenH, informations.get(1), informations.get(2));
                         }
 
                     }
                 }
             }
-        };
-
-        test.addMouseListener(ml);
-//        test.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                super.mouseClicked(e);
-//                if(e.getClickCount() == 2) {
-//                    System.out.println("test ?");
-//                }
-//
-//            }
-//        });
-//        return new JTree(store);
-        return test;
+        });
+        return storeTree;
     }
 }

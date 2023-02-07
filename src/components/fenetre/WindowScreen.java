@@ -21,8 +21,8 @@ public class WindowScreen extends JFrame {
     public WindowScreen(int width, int height) {
         super("Istore");
 
-        this.screenW = width*3/4;
-        this.screenH = height*3/4;
+        this.screenW = (int) (width*0.5);
+        this.screenH = (int) (height*0.5);
         this.font = new Font("Arial", Font.PLAIN, 12);
 
         UIManager.put("Menu.font", font);
@@ -44,19 +44,17 @@ public class WindowScreen extends JFrame {
 
     }
 
-    public static void pageEmployeeRedraw(JFrame frame, JPanel pan, int screenW, int screenH, ActionEvent event) {
+    public static void pageEmployeeRedraw(JFrame frame, JPanel pan, int screenW, int screenH, String firstName, String lastName) {
         pan.removeAll();
         frame.setJMenuBar(new MenuBarSample(frame, pan, screenW, screenH, userId));
         pan.add(new ToolBarSample(frame, pan), BorderLayout.WEST);
-        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId)), new EmployeePanel((int) (screenW*0.66), (int) (screenH*0.66), pan), screenW));
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new EmployeePanel((int) (screenW*0.66), (int) (screenH*0.66), pan, firstName, lastName), screenW));
         pan.updateUI();
     }
 
     public static void pageConnexionRedraw(JFrame frame, JPanel pan, int screenW, int screenH, ActionEvent event) {
         pan.removeAll();
         frame.setJMenuBar(null);
-        System.out.println(screenW);
-        System.out.println(screenH);
         pan.add(new WelcomePanel(screenW*2 ,screenH*2, frame, new InscriptionPanel(screenW, screenH), new ConnexionPanel(frame, screenW, screenH, pan)));
         pan.updateUI();
     }
@@ -65,7 +63,7 @@ public class WindowScreen extends JFrame {
         pan.removeAll();
         frame.setJMenuBar(new MenuBarSample(frame, pan, screenW, screenH, userId));
         pan.add(new ToolBarSample(frame, pan), BorderLayout.WEST);
-        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId)), new InventoryPanel((int) (screenW*0.66), (int) (screenH*0.66)), screenW));
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new InventoryPanel((int) (screenW*0.66), (int) (screenH*0.66)), screenW));
         pan.updateUI();
     }
 

@@ -11,7 +11,7 @@ public class EmployeePanel extends JPanel{
     private final int panelH;
     private JPanel pan;
 
-    public EmployeePanel(int panelW, int panelH, JPanel pan) {
+    public EmployeePanel(int panelW, int panelH, JPanel pan, String firstName, String lastName) {
         super(null);
         this.panelW = panelW;
         this.panelH = panelH;
@@ -20,7 +20,7 @@ public class EmployeePanel extends JPanel{
         int widthComponent = 200;
         int heightComponent = 30;
 
-        ArrayList<String> infos = DatabaseConnexion.getUserInfos("Mathieu", "Cart");
+        ArrayList<String> infos = DatabaseConnexion.getUserInfos(firstName, lastName);
 
         JLabel emailLabel = new JLabel(infos.get(0));
         JLabel first_nameLabel = new JLabel(infos.get(1));

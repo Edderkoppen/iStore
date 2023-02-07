@@ -33,11 +33,14 @@ public class WindowScreen extends JFrame {
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.darkGray);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setResizable(false);
 
         JPanel contentPane = (JPanel) this.getContentPane();
 
+        System.out.println(screenW);
+        System.out.println(screenH);
 //        this.setJMenuBar(new MenuBarSample(contentPane, this.screenW, this.screenH, userId));
-        contentPane.add(new ConnexionPanel(this, this.screenW,this.screenH, contentPane));
+        contentPane.add(new WelcomePanel(this.screenW ,this.screenH, this, new InscriptionPanel(this.screenW/2, this.screenH/2), new ConnexionPanel(this, this.screenW/2, this.screenH/2, contentPane)));
 
     }
 
@@ -52,7 +55,9 @@ public class WindowScreen extends JFrame {
     public static void pageConnexionRedraw(JFrame frame, JPanel pan, int screenW, int screenH, ActionEvent event) {
         pan.removeAll();
         frame.setJMenuBar(null);
-        pan.add(new ConnexionPanel(frame, (int) (screenW*0.66), (int) (screenH*0.66), pan));
+        System.out.println(screenW);
+        System.out.println(screenH);
+        pan.add(new WelcomePanel(screenW*2 ,screenH*2, frame, new InscriptionPanel(screenW, screenH), new ConnexionPanel(frame, screenW, screenH, pan)));
         pan.updateUI();
     }
 
@@ -65,6 +70,6 @@ public class WindowScreen extends JFrame {
     }
 
     public static void getFieldConnexion(JFrame frame, ActionEvent event) {
-        JOptionPane.showMessageDialog(frame, DatabaseConnexion.getUserInfos().get(0));
+//        JOptionPane.showMessageDialog(frame, DatabaseConnexion.getUserInfos().get(0));
     }
 }

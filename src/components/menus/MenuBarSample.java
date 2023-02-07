@@ -28,7 +28,7 @@ public class MenuBarSample extends JMenuBar {
         JMenu menuUser = null;
 
         if(user != 0) {
-            menuUser = new JMenu(DatabaseConnexion.getUserInfos().get(0));
+            menuUser = new JMenu(DatabaseConnexion.getUserInfosFromId(user).get(1));
         }
         menuStore.setMnemonic('M');
 

@@ -84,6 +84,7 @@ public class DatabaseConnexion {
         return result;
     }
 
+
     public static String getNameStoreId(int id) {
         String querie = "SELECT s.store_name FROM store s " +
                 "join user u on u.id_store = s.id_store " +
@@ -104,13 +105,15 @@ public class DatabaseConnexion {
         return result;
     }
 
+
+
     /**
      * Récupère les informations de l'utilisateur.
      *
      * @return une arrayList contenant l'email, le prénom et le nom de l'utilisateur.
      */
-    public static ArrayList<String> getUserInfos() {
-        String querie = "SELECT email, first_name, surname FROM user where first_name like 'mathieu';";
+    public static ArrayList<String> getUserInfos(String first_name, String last_name) {
+        String querie = "SELECT email, first_name, surname FROM user where first_name like '" + first_name + "' and surname like '" + last_name + "';";
         ArrayList<String> listResult = new ArrayList<>();
 
         try {
@@ -130,6 +133,26 @@ public class DatabaseConnexion {
         return listResult;
     }
 
+    public static ArrayList<String> getUserInfosFromId(int id_user) {
+        String querie = "SELECT email, first_name, surname FROM user where id_user =" + id_user + ";";
+        ArrayList<String> listResult = new ArrayList<>();
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+
+            while (res.next()) {
+                listResult.add(res.getString("email"));
+                listResult.add(res.getString("first_name"));
+                listResult.add(res.getString("surname"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return listResult;
+    }
 
     /**
      * Récupère les noms des magasins, et les noms et prénoms des utilisateurs en ayant l'accès.

@@ -6,6 +6,7 @@ import components.menus.ToolBarSample;
 import components.menus.TreeSample;
 import components.pages.InventoryPanel;
 import components.pages.ConnexionPanel;
+import connexion.DatabaseConnexion;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +16,7 @@ public class WindowScreen extends JFrame {
     private final int screenH;
     private final Font font;
     private JPanel panel;
-
+    public static int userId;
 
     public WindowScreen(int width, int height) {
         super("Istore");
@@ -34,19 +35,21 @@ public class WindowScreen extends JFrame {
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 
-        this.setJMenuBar(MenuBarSample.createMenuBar());
         JPanel contentPane = (JPanel) this.getContentPane();
 
-//        contentPane.add(new PageConnexionPanel(this.screenW,this.screenH));
+        this.setJMenuBar(MenuBarSample.createMenuBar(contentPane, this.screenW, this.screenH));
+
         pageConnexion(contentPane, this.screenW, this.screenH);
     }
 
     public static void pageConnexion(JPanel pan, int screenW, int screenH) {
-        pan.add(ToolBarSample.createToolBar(pan), BorderLayout.NORTH);
-        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), new ConnexionPanel((int) (screenW*0.66), (int) (screenH*0.66), pan), screenW));
+//        pan.add(ToolBarSample.createToolBar(pan), BorderLayout.NORTH);
+//        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), new ConnexionPanel((int) (screenW*0.66), (int) (screenH*0.66), pan), screenW));
+        pan.add(new ConnexionPanel((int) (screenW*0.66), (int) (screenH*0.66), pan));
     }
     public static void pageInventory(JPanel pan, int screenW, int screenH) {
         pan.add(ToolBarSample.createToolBar(pan), BorderLayout.NORTH);
-        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), new InventoryPanel((int) (screenW*0.66), (int) (screenH*0.66)), screenW));
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId)), new InventoryPanel((int) (screenW*0.66), (int) (screenH*0.66)), screenW));
     }
+
 }

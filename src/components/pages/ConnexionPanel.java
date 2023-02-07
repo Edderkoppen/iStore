@@ -44,9 +44,14 @@ public class ConnexionPanel extends JPanel {
             String password = DatabaseConnexion.getPassword(new String(passwordField.getPassword()));
 
             if(pseudo != null && password != null && userNameField.getText().matches(pseudo) && new String(passwordField.getPassword()).matches(password)) {
-                changePanel(pan, this.panelW, this.panelH, event);
+                WindowScreen.userId =  setUserId(pseudo);
+                changePanel(this.pan, this.panelW, this.panelH, event);
+                System.out.println(WindowScreen.userId);
+                System.out.println(pseudo);
+                System.out.println(WindowScreen.userId);
+
             } else {
-                JOptionPane.showMessageDialog(pan, "Nom d'utilisateur ou mot de passe incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this.pan, "Nom d'utilisateur ou mot de passe incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         });
 
@@ -73,5 +78,9 @@ public class ConnexionPanel extends JPanel {
         pan.removeAll();
         WindowScreen.pageInventory(pan, screenW, screenH);
         pan.updateUI();
+    }
+
+    public static int setUserId(String pseudo) {
+        return DatabaseConnexion.getUserId(pseudo);
     }
 }

@@ -66,6 +66,44 @@ public class DatabaseConnexion {
         return result;
     }
 
+    public static int getUserId(String pseudo) {
+        String querie = "SELECT id_user FROM user where pseudo like '" + pseudo + "';";
+        int result = 0;
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+            if(res.next()) {
+                result = res.getInt("id_user");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+
+    public static String getNameStoreId(int id) {
+        String querie = "SELECT s.store_name FROM store s " +
+                "join user u on u.id_store = s.id_store " +
+                "where u.id_user =" + id + ";";
+        String result = null;
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+            if(res.next()) {
+                result = res.getString("store_name");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+
     /**
      * Récupère les informations de l'utilisateur.
      *
@@ -98,10 +136,11 @@ public class DatabaseConnexion {
      *
      * @return une arrayList contenant toutes ces informations.
      */
-    public static ArrayList<String> getStoreInfos() {
+    public static ArrayList<String> getStoreInfos(String store) {
 
         String querie = "select s.store_name, u.first_name, u.surname from store s\n" +
-                        "inner join user u on s.id_store = u.id_store;";
+                        "inner join user u on s.id_store = u.id_store\n" +
+                        "where s.store_name like '" + store +"';";
 
         ArrayList<String> listResult = new ArrayList<>();
 

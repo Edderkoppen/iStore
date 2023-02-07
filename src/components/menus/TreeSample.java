@@ -7,9 +7,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.util.ArrayList;
 
 public class TreeSample {
-    public static JTree createTree() {
+    public static JTree createTree(String nameStore) {
         DefaultMutableTreeNode store = new DefaultMutableTreeNode("Magasins");
-        ArrayList<String> storeInfos = DatabaseConnexion.getStoreInfos();
+        ArrayList<String> storeInfos = DatabaseConnexion.getStoreInfos(nameStore);
         ArrayList<String> storeName = DatabaseConnexion.getStoreName();
 
         DefaultMutableTreeNode storeNameTree = null;

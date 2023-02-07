@@ -5,8 +5,11 @@ import components.menus.SplitPaneSample;
 import components.menus.ToolBarSample;
 import components.menus.TreeSample;
 import components.pages.InventoryPanel;
-import components.pages.ConnexionPanel;
-import connexion.DatabaseConnexion;
+import components.pages.PageConnexionPanel;
+import components.pages.PageInventoryPanel;
+import components.pages.employeePanel;
+import components.pages.PageInscriptionPanel;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,9 +40,11 @@ public class WindowScreen extends JFrame {
 
         JPanel contentPane = (JPanel) this.getContentPane();
 
-        this.setJMenuBar(MenuBarSample.createMenuBar(contentPane, this.screenW, this.screenH, userId));
+        //contentPane.add(new PageConnexionPanel(this.screenW,this.screenH));
+        //contentPane.add(new InventoryPanel(this.screenW,this.screenH));
+        //contentPane.add(new employeePanel(this.screenW,this.screenH));
+        contentPane.add(new PageInscriptionPanel(this.screenW,this.screenH));
 
-        pageConnexion(contentPane, this.screenW, this.screenH);
     }
 
     public static void pageConnexion(JPanel pan, int screenW, int screenH) {

@@ -41,6 +41,5 @@ public class InventoryPanel extends JPanel{
         this.add(decrease);
 
 
-        this.setBackground(Color.white);
     }
 }

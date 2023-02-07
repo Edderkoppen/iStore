@@ -7,6 +7,9 @@ import components.menus.TreeSample;
 import components.pages.InventoryPanel;
 import components.pages.PageConnexionPanel;
 import components.pages.PageInventoryPanel;
+import components.pages.employeePanel;
+import components.pages.PageInscriptionPanel;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +39,11 @@ public class WindowScreen extends JFrame {
 
         JPanel contentPane = (JPanel) this.getContentPane();
 
-        contentPane.add(new PageConnexionPanel(this.screenW,this.screenH));
+        //contentPane.add(new PageConnexionPanel(this.screenW,this.screenH));
+        //contentPane.add(new InventoryPanel(this.screenW,this.screenH));
+        //contentPane.add(new employeePanel(this.screenW,this.screenH));
+        contentPane.add(new PageInscriptionPanel(this.screenW,this.screenH));
+
     }
 
     private void pageConnexion(JPanel pan) {

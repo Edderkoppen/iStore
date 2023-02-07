@@ -3,7 +3,8 @@ package components.menus;
 import javax.swing.*;
 import java.awt.*;
 
-public class SplitPaneSample {
+public class SplitPaneSample extends JSplitPane {
+
     public static JSplitPane createSplitPane(JTree tree, JPanel pan, int screenW) {
 
         JScrollPane leftPane = new JScrollPane(tree);

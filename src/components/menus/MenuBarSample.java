@@ -4,83 +4,72 @@ import components.fenetre.WindowScreen;
 import connexion.DatabaseConnexion;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
-public class MenuBarSample extends JPanel {
-    private static JFrame frame;
+public class MenuBarSample extends JMenuBar {
+    private JFrame frame;
+    private JPanel pan;
+    private  int screenW;
+    private int screenH;
+    private int user;
 
-    public static JMenuBar createMenuBar(JPanel pan, int screenW, int screenH, int user) {
-        JMenuBar menuBar = new JMenuBar();
+    public MenuBarSample(JFrame frame, JPanel pan, int screenW, int screenH, int user) {
+        super();
+        this.frame = frame;
+        this.pan = pan;
+        this.screenW = screenW;
+        this.screenH = screenH;
+        this.user = user;
 
-        JMenu menuUser = new JMenu("Action");
+        JMenu menuAction = new JMenu("Action");
         JMenu menuStore = new JMenu("Magasin");
-        JMenu test = null;
-        if(user != 0) {
-            test = new JMenu(DatabaseConnexion.getUserInfos().get(0));
-        }
+        JMenu menuEmployee = new JMenu("Employés");
+        JMenu menuUser = null;
 
-        menuUser.setMnemonic('U');
+        if(user != 0) {
+            menuUser = new JMenu(DatabaseConnexion.getUserInfos().get(0));
+        }
         menuStore.setMnemonic('M');
 
-        JMenuItem itemInfosUser = new JMenuItem("Se connecter");
+        JMenuItem itemConnect = new JMenuItem("Se connecter");
         JMenuItem itemDisconnect = new JMenuItem("Déconnexion");
+        JMenuItem itemSee = new JMenuItem("Voir");
         JMenuItem itemDeleteUser = new JMenuItem("Delete");
         JMenuItem itemSeeStore = new JMenuItem("Informations");
 
-        itemInfosUser.setIcon(new ImageIcon("src/assets/icons/about.png"));
-        itemInfosUser.addActionListener(event -> itemInfosUserListener(event));
+        itemConnect.setIcon(new ImageIcon("src/assets/icons/about.png"));
+        itemConnect.addActionListener(event -> WindowScreen.getFieldConnexion(frame, event));
 
         itemDisconnect.setMnemonic('C');
         itemDisconnect.setIcon(new ImageIcon("src/assets/icons/about.png"));;
         itemDisconnect.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
-        itemDisconnect.addActionListener(event -> itemUpdateListener(pan, screenW, screenH, event));
+        itemDisconnect.addActionListener(event -> WindowScreen.pageConnexionRedraw(frame, pan, screenW, screenH, event));
+
+        itemSee.addActionListener(event -> WindowScreen.pageEmployeeRedraw(frame, pan, screenW, screenH, event));
+
 
         itemDeleteUser.setMnemonic('D');
-        itemDeleteUser.addActionListener(event -> itemDeleteListener(event));
 
         itemSeeStore.setMnemonic('I');
         itemSeeStore.setIcon(new ImageIcon("src/assets/icons/about.png"));
-        itemSeeStore.addActionListener(event -> menuStoreListener(event));
 
-        menuUser.add(itemInfosUser);
-        menuUser.addSeparator();
-        menuUser.add(itemDisconnect);
+        menuAction.add(itemConnect);
+        menuAction.addSeparator();
+        menuAction.add(itemDisconnect);
 
         menuStore.add(itemSeeStore);
         menuStore.addSeparator();
         menuStore.add(itemDeleteUser);
 
-        menuBar.add(menuUser);
-        menuBar.add(menuStore);
-        if(test != null) {
-            menuBar.add(test);
+        menuEmployee.add(itemSee);
+
+        this.add(menuAction);
+        this.add(menuStore);
+        this.add(menuEmployee);
+
+        if(menuUser != null) {
+            this.add(menuUser);
         }
-
-
-        return menuBar;
-    }
-
-    private static void itemInfosUserListener(ActionEvent event) {
-        JOptionPane.showMessageDialog(frame, DatabaseConnexion.getUserInfos().get(0));
-    }
-
-    private static void itemUpdateListener(JPanel pan, int screenW, int screenH, ActionEvent event) {
-        pan.removeAll();
-        WindowScreen.pageConnexion(pan, screenW, screenH);
-        pan.updateUI();
-    }
-
-    private static void itemDeleteListener(ActionEvent event) {
-        JOptionPane.showMessageDialog(frame, "Delete" );
-    }
-
-    private static void menuStoreListener(ActionEvent event) {
-        JOptionPane.showMessageDialog(frame, "Store");
-    }
-
-    private void toolBarNewListener(ActionEvent event) {
-        JOptionPane.showMessageDialog(frame, "Nouveau");
     }
 }

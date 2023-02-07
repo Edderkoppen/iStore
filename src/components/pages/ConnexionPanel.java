@@ -5,21 +5,20 @@ import connexion.DatabaseConnexion;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ConnexionPanel extends JPanel {
 
     private final int panelW;
     private final int panelH;
     private final JPanel pan;
+    private JFrame frame;
 
-    public ConnexionPanel(int panelW, int panelH, JPanel pan) {
+    public ConnexionPanel(JFrame frame, int panelW, int panelH, JPanel pan) {
         super(null);
         this.panelW = panelW;
         this.panelH = panelH;
         this.pan = pan;
+        this.frame = frame;
 
         int widthComponent = 200;
         int heightComponent = 30;
@@ -43,12 +42,9 @@ public class ConnexionPanel extends JPanel {
             String pseudo = DatabaseConnexion.getPseudo(userNameField.getText());
             String password = DatabaseConnexion.getPassword(new String(passwordField.getPassword()));
 
-            if(pseudo != null && password != null && userNameField.getText().matches(pseudo) && new String(passwordField.getPassword()).matches(password)) {
-                WindowScreen.userId =  setUserId(pseudo);
-                changePanel(this.pan, this.panelW, this.panelH, event);
-                System.out.println(WindowScreen.userId);
-                System.out.println(pseudo);
-                System.out.println(WindowScreen.userId);
+            if (pseudo != null && password != null && userNameField.getText().matches(pseudo) && new String(passwordField.getPassword()).matches(password)) {
+                WindowScreen.userId =  DatabaseConnexion.getUserId(pseudo);
+                WindowScreen.pageInventoryRedraw(this.frame, this.pan, this.panelW, this.panelH, event);
 
             } else {
                 JOptionPane.showMessageDialog(this.pan, "Nom d'utilisateur ou mot de passe incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -62,25 +58,5 @@ public class ConnexionPanel extends JPanel {
         this.add(submit);
 
         this.setBackground(Color.orange);
-    }
-
-//    private void testListener(ActionEvent event) {
-//        System.out.println("cliqué");
-//    }
-
-    private String getEntry(JTextField username, ActionEvent event) {
-//        username.getText();
-        System.out.println(username.getText());
-        return username.getText();
-
-    }
-    private static void changePanel(JPanel pan, int screenW, int screenH, ActionEvent event) {
-        pan.removeAll();
-        WindowScreen.pageInventory(pan, screenW, screenH);
-        pan.updateUI();
-    }
-
-    public static int setUserId(String pseudo) {
-        return DatabaseConnexion.getUserId(pseudo);
     }
 }

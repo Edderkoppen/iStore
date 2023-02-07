@@ -3,13 +3,17 @@ package components.menus;
 import components.fenetre.WindowScreen;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
 
-public class ToolBarSample {
-    public static JToolBar createToolBar(JPanel pan) {
+public class ToolBarSample extends JToolBar {
+    private JPanel pan;
+    private JFrame frame;
 
-        JToolBar toolBar = new JToolBar();
+    public ToolBarSample(JFrame frame, JPanel pan) {
+        super();
+        this.pan = pan;
+        this.frame = frame;
+
+        this.setOrientation(SwingConstants.VERTICAL);
 
         JButton buttonNew = new JButton(new ImageIcon("src/assets/icons/new.png"));
         JButton btnSave = new JButton( new ImageIcon( "src/assets/icons/save.png" ) );
@@ -27,29 +31,21 @@ public class ToolBarSample {
         btnPaste.setToolTipText( "Coller" );
         btnExit.setToolTipText( "Quitter" );
 
-        buttonNew.addActionListener(event -> changePanel(pan,700, 500, event));
+        buttonNew.addActionListener(event -> WindowScreen.pageInventoryRedraw(this.frame, this.pan,700, 500, event));
 
-        toolBar.add(buttonNew);
-        toolBar.addSeparator();
-        toolBar.add( btnSave );
-        toolBar.addSeparator();
-        toolBar.add( btnSaveAs );
-        toolBar.addSeparator();
-        toolBar.add( btnCopy );
-        toolBar.addSeparator();
-        toolBar.add( btnCut );
-        toolBar.addSeparator();
-        toolBar.add( btnPaste );
-        toolBar.addSeparator();
-        toolBar.add( btnExit );
-        toolBar.addSeparator();
-
-        return toolBar;
-    }
-
-    private static void changePanel(JPanel pan, int screenW, int screenH, ActionEvent event) {
-        pan.removeAll();
-        WindowScreen.pageInventory(pan, screenW, screenH);
-        pan.updateUI();
+        this.add(buttonNew);
+        this.addSeparator();
+        this.add( btnSave );
+        this.addSeparator();
+        this.add( btnSaveAs );
+        this.addSeparator();
+        this.add( btnCopy );
+        this.addSeparator();
+        this.add( btnCut );
+        this.addSeparator();
+        this.add( btnPaste );
+        this.addSeparator();
+        this.add( btnExit );
+        this.addSeparator();
     }
 }

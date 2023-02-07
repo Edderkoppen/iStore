@@ -7,9 +7,9 @@ import components.menus.TreeSample;
 import components.pages.*;
 import connexion.DatabaseConnexion;
 
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 
 public class WindowScreen extends JFrame {
     private final int screenW;
@@ -34,22 +34,37 @@ public class WindowScreen extends JFrame {
         this.getContentPane().setBackground(Color.darkGray);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-
         JPanel contentPane = (JPanel) this.getContentPane();
 
-        this.setJMenuBar(MenuBarSample.createMenuBar(contentPane, this.screenW, this.screenH, userId));
-        contentPane.add(new ConnexionPanel(this.screenW,this.screenH, contentPane));
+//        this.setJMenuBar(new MenuBarSample(contentPane, this.screenW, this.screenH, userId));
+        contentPane.add(new ConnexionPanel(this, this.screenW,this.screenH, contentPane));
 
     }
 
-    public static void pageConnexion(JPanel pan, int screenW, int screenH) {
-//        pan.add(ToolBarSample.createToolBar(pan), BorderLayout.NORTH);
-//        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(), new ConnexionPanel((int) (screenW*0.66), (int) (screenH*0.66), pan), screenW));
-        pan.add(new ConnexionPanel((int) (screenW*0.66), (int) (screenH*0.66), pan));
+    public static void pageEmployeeRedraw(JFrame frame, JPanel pan, int screenW, int screenH, ActionEvent event) {
+        pan.removeAll();
+        frame.setJMenuBar(new MenuBarSample(frame, pan, screenW, screenH, userId));
+        pan.add(new ToolBarSample(frame, pan), BorderLayout.WEST);
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId)), new EmployeePanel((int) (screenW*0.66), (int) (screenH*0.66), pan), screenW));
+        pan.updateUI();
     }
-    public static void pageInventory(JPanel pan, int screenW, int screenH) {
-        pan.add(ToolBarSample.createToolBar(pan), BorderLayout.NORTH);
+
+    public static void pageConnexionRedraw(JFrame frame, JPanel pan, int screenW, int screenH, ActionEvent event) {
+        pan.removeAll();
+        frame.setJMenuBar(null);
+        pan.add(new ConnexionPanel(frame, (int) (screenW*0.66), (int) (screenH*0.66), pan));
+        pan.updateUI();
+    }
+
+    public static void pageInventoryRedraw(JFrame frame, JPanel pan, int screenW, int screenH, ActionEvent event) {
+        pan.removeAll();
+        frame.setJMenuBar(new MenuBarSample(frame, pan, screenW, screenH, userId));
+        pan.add(new ToolBarSample(frame, pan), BorderLayout.WEST);
         pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId)), new InventoryPanel((int) (screenW*0.66), (int) (screenH*0.66)), screenW));
+        pan.updateUI();
     }
 
+    public static void getFieldConnexion(JFrame frame, ActionEvent event) {
+        JOptionPane.showMessageDialog(frame, DatabaseConnexion.getUserInfos().get(0));
+    }
 }

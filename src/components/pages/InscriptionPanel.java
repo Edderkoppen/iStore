@@ -3,12 +3,12 @@ package components.pages;
 import javax.swing.*;
 import java.awt.*;
 
-public class PageInscriptionPanel extends JPanel {
+public class InscriptionPanel extends JPanel {
 
     private final int panelW;
     private final int panelH;
 
-    public PageInscriptionPanel(int panelW, int panelH) {
+    public InscriptionPanel(int panelW, int panelH) {
         super(null);
         this.panelW = panelW;
         this.panelH = panelH;

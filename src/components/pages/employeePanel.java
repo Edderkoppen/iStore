@@ -23,11 +23,11 @@ public class employeePanel extends JPanel{
         JLabel surnameLabel = new JLabel("surname");
 
         //Position
-        emailLabel.setBounds((int) (this.panelW*0.1) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
-        passwordLabel.setBounds((int) (this.panelW*0.2) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
-        pseudoLabel.setBounds((int) (this.panelW*0.3) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
-        first_nameLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
-        surnameLabel.setBounds((int) (this.panelW*0.5) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
+        emailLabel.setBounds((int) (this.panelW*0.35) - widthComponent/2, (int) (this.panelH*0.35) - heightComponent/2, widthComponent, heightComponent);
+        passwordLabel.setBounds((int) (this.panelW*0.45) - widthComponent/2, (int) (this.panelH*0.35) - heightComponent/2, widthComponent, heightComponent);
+        pseudoLabel.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.35) - heightComponent/2, widthComponent, heightComponent);
+        first_nameLabel.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.35) - heightComponent/2, widthComponent, heightComponent);
+        surnameLabel.setBounds((int) (this.panelW*0.75) - widthComponent/2, (int) (this.panelH*0.35) - heightComponent/2, widthComponent, heightComponent);
 
         this.add(emailLabel);
         this.add(passwordLabel);

@@ -26,12 +26,12 @@ public class InventoryPanel extends JPanel{
         JButton decrease = new JButton("-");
 
         //Position
-        imageLabel.setBounds((int) (this.panelW*0.405) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
-        itemNameLabel.setBounds((int) (this.panelW*0.445) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
-        priceLabel.setBounds((int) (this.panelW*0.485) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
-        increase.setBounds((int) (this.panelW*0.525) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
-        quantityLabel.setBounds((int) (this.panelW*0.580) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
-        decrease.setBounds((int) (this.panelW*0.605) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
+        imageLabel.setBounds((int) (this.panelW*0.40) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
+        itemNameLabel.setBounds((int) (this.panelW*0.45) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
+        priceLabel.setBounds((int) (this.panelW*0.50) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
+        increase.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
+        quantityLabel.setBounds((int) (this.panelW*0.60) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
+        decrease.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
 
         this.add(imageLabel);
         this.add(itemNameLabel);

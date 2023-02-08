@@ -129,6 +129,26 @@ public class DatabaseConnexion {
 
         return listResult;
     }
+    public static ArrayList<String> getUserPrincipalInfos(int id) {
+        String querie = "SELECT first_name, surname FROM user WHERE id_user = "+ id +";";
+        ArrayList<String> listResult = new ArrayList<>();
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+
+            while (res.next()) {
+                listResult.add(res.getString("first_name"));
+                listResult.add(res.getString("surname"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return listResult;
+    }
+
 
 
     /**

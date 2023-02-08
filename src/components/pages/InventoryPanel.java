@@ -26,11 +26,14 @@ public class InventoryPanel extends JPanel{
         JLabel priceLabel = new JLabel("N/A");
         JLabel quantityLabel = new JLabel("N/A");
 
+
         if(!informations.isEmpty()) {
-            imageLabel.setIcon(new ImageIcon(informations.get(0)));
-            itemNameLabel = new JLabel(informations.get(1));
-            priceLabel = new JLabel(informations.get(2) + "€");
-            quantityLabel = new JLabel(informations.get(3));
+//            for(String infos : informations) {
+                imageLabel.setIcon(new ImageIcon(informations.get(0)));
+                itemNameLabel = new JLabel(informations.get(1));
+                priceLabel = new JLabel(informations.get(2) + "€");
+                quantityLabel = new JLabel(informations.get(3));
+//            }
         }
 
         JButton increase = new JButton("+");

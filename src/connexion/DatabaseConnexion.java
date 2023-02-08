@@ -48,8 +48,8 @@ public class DatabaseConnexion {
     }
 
 
-    public static String getPassword(String password) {
-        String querie = "SELECT password FROM user where password like '" + password + "';";
+    public static String getPassword(String user) {
+        String querie = "SELECT password FROM user where pseudo like '" + user + "';";
         String result = null;
 
         try {
@@ -266,10 +266,22 @@ public class DatabaseConnexion {
     }
 
 
+    public static void insertNewUser(String email, String password, String pseudo, String firstName, String surname) {
+        String querie = "insert into user (email, password, pseudo, first_name, surname, id_role, id_store)\n" +
+                "value ('" + email + "', '" + password + "', '" + pseudo + "', '" + firstName + "', '" + surname + "', 1, null);";
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
     /**
      * Ferme la connection à la base de donnée.
      */
-    public void closeConn(){
+    public static void closeConn(){
 
         try {
             System.out.println("Connexion à la base en cours de fermeture ...");

@@ -2,6 +2,7 @@ package components.pages;
 
 import components.fenetre.WindowScreen;
 import connexion.DatabaseConnexion;
+import controller.PasswordController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,12 +41,17 @@ public class ConnexionPanel extends JPanel {
         submit.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
         submit.addActionListener(event -> {
             String pseudo = DatabaseConnexion.getPseudo(userNameField.getText());
-            String password = DatabaseConnexion.getPassword(new String(passwordField.getPassword()));
+//            String password = PasswordController.decrypt(DatabaseConnexion.getPassword(new String(passwordField.getPassword())));
+//            boolean test = Object.equals(PasswordController.encryptPassword("1234"), DatabaseConnexion)
 
-            if (pseudo != null && password != null && userNameField.getText().matches(pseudo) && new String(passwordField.getPassword()).matches(password)) {
-                WindowScreen.userId =  DatabaseConnexion.getUserId(pseudo);
-                WindowScreen.pageInventoryRedraw(this.frame, this.pan, this.panelW, this.panelH);
+            if (pseudo != null && userNameField.getText().matches(pseudo)) {
+                String hashPswd = PasswordController.hashPassword(new String(passwordField.getPassword()));
+                String databasePswd = DatabaseConnexion.getPassword(pseudo);
 
+                if(hashPswd.matches(databasePswd)) {
+                    WindowScreen.userId = DatabaseConnexion.getUserId(pseudo);
+                    WindowScreen.pageInventoryRedraw(this.frame, this.pan, this.panelW, this.panelH);
+                }
             } else {
                 JOptionPane.showMessageDialog(this.pan, "Nom d'utilisateur ou mot de passe incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
             }

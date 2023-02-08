@@ -19,15 +19,17 @@ public class TreeSample extends JTree {
         DefaultMutableTreeNode store = new DefaultMutableTreeNode("Magasins");
         ArrayList<String> storeInfos = DatabaseConnexion.getStoreInfos(nameStore);
         ArrayList<String> storeName = DatabaseConnexion.getStoreName();
+        ArrayList<String> storeVerified = new ArrayList<>();
 
         DefaultMutableTreeNode storeNameTree = null;
 
         for (String name : storeInfos) {
-            if(storeName.contains(name)) {
+            if(storeName.contains(name) && !storeVerified.contains(name)) {
+                storeVerified.add(name);
                 storeNameTree = new DefaultMutableTreeNode(name);
                 store.add(storeNameTree);
 
-            } else if (storeNameTree != null){
+            } else if (storeNameTree != null && !storeVerified.contains(name)){
                 storeNameTree.add(new DefaultMutableTreeNode(name));
             }
         }
@@ -37,7 +39,7 @@ public class TreeSample extends JTree {
             public void mousePressed(MouseEvent e) {
                 int selRow = storeTree.getRowForLocation(e.getX(), e.getY());
                 TreePath selPath = storeTree.getPathForLocation(e.getX(), e.getY());
-                if(selRow == 2 && e.getClickCount() == 2) {
+                if(selRow > 1 && e.getClickCount() == 2) {
                     Object lastNode = selPath.getLastPathComponent();
                     String stringLastNode = valueOf(lastNode);
 

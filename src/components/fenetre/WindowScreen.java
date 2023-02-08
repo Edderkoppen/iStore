@@ -38,7 +38,7 @@ public class WindowScreen extends JFrame {
 
         JPanel contentPane = (JPanel) this.getContentPane();
 
-        contentPane.add(new WelcomePanel(this.screenW ,this.screenH, this, new InscriptionPanel(this.screenW/2, this.screenH/2), new ConnexionPanel(this, this.screenW/2, this.screenH/2, contentPane)));
+        contentPane.add(new WelcomePanel(this.screenW ,this.screenH, this, new InscriptionPanel(this.screenW/2, this.screenH/2, contentPane), new ConnexionPanel(this, this.screenW/2, this.screenH/2, contentPane)));
 
     }
 
@@ -53,7 +53,7 @@ public class WindowScreen extends JFrame {
     public static void pageConnexionRedraw(JFrame frame, JPanel pan, int screenW, int screenH) {
         pan.removeAll();
         frame.setJMenuBar(null);
-        pan.add(new WelcomePanel(screenW*2 ,screenH*2, frame, new InscriptionPanel(screenW, screenH), new ConnexionPanel(frame, screenW, screenH, pan)));
+        pan.add(new WelcomePanel(screenW*2 ,screenH*2, frame, new InscriptionPanel(screenW, screenH, pan), new ConnexionPanel(frame, screenW, screenH, pan)));
         pan.updateUI();
     }
 

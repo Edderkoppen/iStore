@@ -71,8 +71,7 @@ public class InscriptionPanel extends JPanel {
         passwordConfirmedField.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.70) - heightComponent/2, widthComponent, heightComponent);
         this.add(passwordConfirmedField);
 
-        ArrayList<String> test = WhiteListController.getElements();
-        System.out.println("Liste : " + test);
+        ArrayList<String> whiteListElements = WhiteListController.getElements();
 
         //SUBMIT
         JButton submit = new JButton("S'inscrire");
@@ -83,7 +82,10 @@ public class InscriptionPanel extends JPanel {
                         pseudoField.getText().isEmpty() || passwordField.getPassword().length == 0 || passwordConfirmedField.getPassword().length == 0) {
                 JOptionPane.showMessageDialog(this.pan, "Un ou plusieurs champs ne sont pas renseignés", "Erreur", JOptionPane.ERROR_MESSAGE);
 
-            } else if(!test.contains(emailField.getText())) {
+            } else if (!emailField.getText().matches("([a-zA-Z]{1,30}(.|)[a-zA-Z]{1,30}@[a-zA-Z]{1,30}.(com|fr))")) {
+                JOptionPane.showMessageDialog(this.pan, "Mot de passe renseigné incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
+
+            } else if(!whiteListElements.contains(emailField.getText())) {
                 JOptionPane.showMessageDialog(this.pan, "Email non validé par l'administrateur", "Erreur", JOptionPane.ERROR_MESSAGE);
 
             } else if (!new String(passwordField.getPassword()).matches(new String(passwordConfirmedField.getPassword()))) {

@@ -4,6 +4,7 @@ import components.fenetre.WindowScreen;
 import connexion.DatabaseConnexion;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -11,49 +12,89 @@ public class InventoryPanel extends JPanel{
     private final int panelW;
     private final int panelH;
 
-    public InventoryPanel(int panelW, int panelH) {
-        super(null);
+    public InventoryPanel(int panelW, int panelH, JFrame frame, JPanel pan) {
+        super(new GridBagLayout());
         this.panelW = panelW;
         this.panelH = panelH;
 
-        int widthComponent = 100;
-        int heightComponent = 30;
+        this.setBackground(Color.PINK);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.setBorder(new EmptyBorder(new Insets(100, 100, 100, 150)));
 
+        JPanel itemPanel = new JPanel();
+        itemPanel.setBackground(Color.PINK);
+        itemPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
+        itemPanel.setPreferredSize(new Dimension(100, 30));
 
         ArrayList<String> informations = DatabaseConnexion.getStoreInventory(DatabaseConnexion.getNameStoreId(WindowScreen.userId));
-        JLabel imageLabel = new JLabel();
-        JLabel itemNameLabel = new JLabel("N/A");
-        JLabel priceLabel = new JLabel("N/A");
-        JLabel quantityLabel = new JLabel("N/A");
-
 
         if(!informations.isEmpty()) {
-//            for(String infos : informations) {
-                imageLabel.setIcon(new ImageIcon(informations.get(0)));
-                itemNameLabel = new JLabel(informations.get(1));
-                priceLabel = new JLabel(informations.get(2) + "€");
-                quantityLabel = new JLabel(informations.get(3));
-//            }
+            int infoNumber = 0;
+            String tmp = null;
+                for (String infos : informations) {
+                    infoNumber++;
+
+                    if(infos.matches("([a-z-A-Z]{1,50}|[a-z-A-Z]{1,50}\\s[a-z-A-Z]{1,50})")) {
+                        tmp = infos;
+                    }
+
+                    if (infoNumber == 2) {
+                        itemPanel.add(new JLabel(infos + " €"));
+                    }
+
+                    if(infoNumber == 3) {
+                        String finalTmp = tmp;
+                        JButton decrease = new JButton("-");
+                        decrease.addActionListener(event -> {
+                            DatabaseConnexion.updateInventoryQuantity(DatabaseConnexion.getItemQuantity(finalTmp), 1, finalTmp, "-");
+                            WindowScreen.pageInventoryRedraw(frame, pan, panelW, panelH);
+
+                        });
+
+                        itemPanel.add(decrease);
+                        itemPanel.add(new JLabel(infos));
+                        JButton increase = new JButton("+");
+                        JTextField manual = new JTextField();
+                        manual.setPreferredSize(new Dimension(30, 30));
+                        increase.addActionListener(event -> {
+                            DatabaseConnexion.updateInventoryQuantity(DatabaseConnexion.getItemQuantity(finalTmp), 1, finalTmp, "+");
+                            WindowScreen.pageInventoryRedraw(frame, pan, panelW, panelH);
+
+                        });
+
+                        itemPanel.add(increase);
+                        itemPanel.add(manual);
+                        manual.addActionListener(event -> {
+                            if(manual.getText().matches("-(\\d{1,5}|\\s\\d{1,5})")) {
+                                if(manual.getText().replaceAll("\\D", "") != "") {
+                                    if(DatabaseConnexion.getItemQuantity(finalTmp) - Integer.parseInt(manual.getText().replaceAll("\\D", "")) >= 0) {
+                                        DatabaseConnexion.updateInventoryQuantity(DatabaseConnexion.getItemQuantity(finalTmp), Integer.parseInt(manual.getText().replaceAll("\\D", "")), finalTmp, "-");
+                                        WindowScreen.pageInventoryRedraw(frame, pan, panelW, panelH);
+
+                                    } else {
+                                        JOptionPane.showMessageDialog(this, "Vous ne pouvez pas avoir une quantité négative ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                                    }
+                                }
+                            } else {
+                                DatabaseConnexion.updateInventoryQuantity(DatabaseConnexion.getItemQuantity(finalTmp), Integer.parseInt(manual.getText().replaceAll("\\D", "")), finalTmp, "+");
+                                WindowScreen.pageInventoryRedraw(frame, pan, panelW, panelH);
+                            }
+                            manual.setText(null);
+                        });
+                        infoNumber = 0;
+                        this.add(itemPanel);
+                        itemPanel = new JPanel();
+                        itemPanel.setBackground(Color.PINK);
+                        itemPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
+                        itemPanel.setPreferredSize(new Dimension(100, 30));
+                    }
+
+                    if(infoNumber == 1) {
+                        itemPanel.add(new JLabel(infos));
+                    }
+
+                }
+            this.add(itemPanel);
         }
-
-        JButton increase = new JButton("+");
-        JButton decrease = new JButton("-");
-
-        //Position
-        imageLabel.setBounds((int) (this.panelW*0.1) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent/10, heightComponent);
-        itemNameLabel.setBounds((int) (this.panelW*0.2) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
-        priceLabel.setBounds((int) (this.panelW*0.5) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent/2, heightComponent);
-//        increase.setBounds((int) (this.panelW*0.6) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
-        quantityLabel.setBounds((int) (this.panelW*0.8) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent/2, heightComponent);
-//        decrease.setBounds((int) (this.panelW*0.9) - widthComponent/2, (int) (this.panelH*0.5) - heightComponent/2, widthComponent, heightComponent);
-
-        this.add(imageLabel);
-        this.add(itemNameLabel);
-        this.add(priceLabel);
-//        this.add(increase);
-        this.add(quantityLabel);
-//        this.add(decrease);
-
-
     }
 }

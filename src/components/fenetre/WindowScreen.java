@@ -61,10 +61,17 @@ public class WindowScreen extends JFrame {
         pan.removeAll();
         frame.setJMenuBar(new MenuBarSample(frame, pan, screenW, screenH, userId));
         pan.add(new ToolBarSample(frame, pan), BorderLayout.WEST);
-        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new InventoryPanel((int) (screenW*0.66), (int) (screenH*0.66)), screenW));
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new InventoryPanel(screenW, screenH, frame, pan), screenW));
         pan.updateUI();
     }
 
+    public static void pageUpdateRedraw(JFrame frame, JPanel pan, int screenW, int screenH) {
+        pan.removeAll();
+        frame.setJMenuBar(new MenuBarSample(frame, pan, screenW, screenH, userId));
+        pan.add(new ToolBarSample(frame, pan), BorderLayout.WEST);
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new UpdateUserPanel((int) (screenW*0.66), (int) (screenH*0.66)), screenW));
+        pan.updateUI();
+    }
     public static void getFieldConnexion(JFrame frame, ActionEvent event) {
 //        JOptionPane.showMessageDialog(frame, DatabaseConnexion.getUserInfos().get(0));
     }

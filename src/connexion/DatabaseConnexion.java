@@ -29,15 +29,15 @@ public class DatabaseConnexion {
         }
     }
 
-    public static String getPseudo(String username) {
-        String querie = "SELECT pseudo FROM user where pseudo like '" + username + "';";
+    public static String getEmail(String email) {
+        String querie = "SELECT email FROM user where email like '" + email + "';";
         String result = null;
 
         try {
             Statement stmt = database.createStatement();
             ResultSet res = stmt.executeQuery(querie);
             if(res.next()) {
-                result = res.getString("pseudo");
+                result = res.getString("email");
             }
 
         } catch (SQLException e) {
@@ -48,8 +48,8 @@ public class DatabaseConnexion {
     }
 
 
-    public static String getPassword(String user) {
-        String querie = "SELECT password FROM user where pseudo like '" + user + "';";
+    public static String getPassword(String email) {
+        String querie = "SELECT password FROM user where email like '" + email + "';";
         String result = null;
 
         try {
@@ -66,8 +66,8 @@ public class DatabaseConnexion {
         return result;
     }
 
-    public static int getUserId(String pseudo) {
-        String querie = "SELECT id_user FROM user where pseudo like '" + pseudo + "';";
+    public static int getUserId(String email) {
+        String querie = "SELECT id_user FROM user where email like '" + email + "';";
         int result = 0;
 
         try {
@@ -155,7 +155,7 @@ public class DatabaseConnexion {
     }
 
     public static ArrayList<String> getStoreInventory(String store) {
-        String querie = "select i.item_picture, i.item_name, i.item_price, iv.quantity from item i\n" +
+        String querie = "select i.item_name, i.item_price, iv.quantity from item i\n" +
                 "join inventory iv on i.id_item = iv.id_item\n" +
                 "join store s on iv.id_store = s.id_store\n" +
                 "where s.store_name like '" + store + "';";
@@ -166,7 +166,6 @@ public class DatabaseConnexion {
             ResultSet res = stmt.executeQuery(querie);
 
             while (res.next()) {
-                listResult.add(res.getString("item_picture"));
                 listResult.add(res.getString("item_name"));
                 listResult.add(res.getString("item_price"));
                 listResult.add(res.getString("quantity"));
@@ -177,6 +176,45 @@ public class DatabaseConnexion {
         }
 
         return listResult;
+    }
+
+    public static int getItemQuantity(String itemName) {
+        String querie = "select i.quantity from item\n" +
+                "join inventory i on item.id_item = i.id_item\n" +
+                "where item_name like '" + itemName + "';";
+
+        int result = 0;
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+
+            if(res.next()) {
+                result = res.getInt("quantity");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+    public static void updateInventoryQuantity(int baseQuantity, int quantity, String itemName, String signe) {
+        String querie = "update inventory\n" +
+                "join item i on i.id_item = inventory.id_item\n" +
+                "set quantity = " + baseQuantity + signe + quantity + "\n" +
+                "where i.item_name like '" + itemName + "';";
+        ArrayList<String> listResult = new ArrayList<>();
+
+        if(signe.matches("\\+") || baseQuantity - quantity >= 0) {
+            try {
+                Statement stmt = database.createStatement();
+                stmt.executeUpdate(querie);
+
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     /**
@@ -268,7 +306,7 @@ public class DatabaseConnexion {
 
     public static void insertNewUser(String email, String password, String pseudo, String firstName, String surname) {
         String querie = "insert into user (email, password, pseudo, first_name, surname, id_role, id_store)\n" +
-                "value ('" + email + "', '" + password + "', '" + pseudo + "', '" + firstName + "', '" + surname + "', 1, null);";
+                "value ('" + email + "', '" + password + "', '" + pseudo + "', '" + firstName + "', '" + surname + "', 2, null);";
         try {
             Statement stmt = database.createStatement();
             stmt.executeUpdate(querie);

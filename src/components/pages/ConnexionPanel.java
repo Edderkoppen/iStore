@@ -40,18 +40,20 @@ public class ConnexionPanel extends JPanel {
 
         submit.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
         submit.addActionListener(event -> {
-            String pseudo = DatabaseConnexion.getPseudo(userNameField.getText());
-//            String password = PasswordController.decrypt(DatabaseConnexion.getPassword(new String(passwordField.getPassword())));
-//            boolean test = Object.equals(PasswordController.encryptPassword("1234"), DatabaseConnexion)
+            String email = DatabaseConnexion.getEmail(userNameField.getText());
 
-            if (pseudo != null && userNameField.getText().matches(pseudo)) {
+            if (email != null && userNameField.getText().matches(email)) {
                 String hashPswd = PasswordController.hashPassword(new String(passwordField.getPassword()));
-                String databasePswd = DatabaseConnexion.getPassword(pseudo);
+                String databasePswd = DatabaseConnexion.getPassword(email);
 
                 if(hashPswd.matches(databasePswd)) {
-                    WindowScreen.userId = DatabaseConnexion.getUserId(pseudo);
+                    WindowScreen.userId = DatabaseConnexion.getUserId(email);
                     WindowScreen.pageInventoryRedraw(this.frame, this.pan, this.panelW, this.panelH);
+
+                } else {
+                    JOptionPane.showMessageDialog(this.pan, "Nom d'utilisateur ou mot de passe incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
+
             } else {
                 JOptionPane.showMessageDialog(this.pan, "Nom d'utilisateur ou mot de passe incorrect", "Erreur", JOptionPane.ERROR_MESSAGE);
             }

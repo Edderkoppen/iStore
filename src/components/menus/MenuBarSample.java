@@ -46,7 +46,7 @@ public class MenuBarSample extends JMenuBar {
         itemDisconnect.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, InputEvent.CTRL_DOWN_MASK));
         itemDisconnect.addActionListener(event -> WindowScreen.pageConnexionRedraw(frame, pan, screenW, screenH));
 
-//        itemSee.addActionListener(event -> WindowScreen.pageEmployeeRedraw(frame, pan, screenW, screenH));
+        itemSee.addActionListener(event -> WindowScreen.pageUpdateRedraw(frame, pan, screenW, screenH));
 
 
         itemDeleteUser.setMnemonic('D');

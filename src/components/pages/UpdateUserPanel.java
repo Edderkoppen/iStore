@@ -1,9 +1,15 @@
 package components.pages;
 
+import components.fenetre.WindowScreen;
+import connexion.DatabaseConnexion;
+import controller.PasswordController;
+import controller.WhiteListController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 public class UpdateUserPanel extends JPanel{
     private final int panelW;
@@ -30,13 +36,11 @@ public class UpdateUserPanel extends JPanel{
         //BUTTON
         JButton emailChange = new JButton("Modifier");
         JButton passwordChange = new JButton("Modifier");
-        JButton passwordConfirmedChange = new JButton("Modifier");
         JButton pseudoChange = new JButton("Modifier");
 
         //FIELD
         JTextField emailField = new JTextField();
         JPasswordField passwordField = new JPasswordField();
-        JPasswordField passwordConfirmedField = new JPasswordField();
         JPasswordField pseudoField = new JPasswordField();
 
         //POSITION LABEL
@@ -45,7 +49,6 @@ public class UpdateUserPanel extends JPanel{
         surnameLabel.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.20) - heightComponent/2, widthComponent, heightComponent);
         emailLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
         passwordLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
-        passwordConfirmedLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.50) - heightComponent/2, widthComponent, heightComponent);
         pseudoLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
         submit.setBounds((int) (this.panelW*0.5) - widthComponent/2, (int) (this.panelH*0.80) - heightComponent/2, widthComponent, heightComponent);
 
@@ -53,13 +56,11 @@ public class UpdateUserPanel extends JPanel{
         //POSITION CHANGE
         emailChange.setBounds((int) (this.panelW*0.6) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
         passwordChange.setBounds((int) (this.panelW*0.6) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
-        passwordConfirmedChange.setBounds((int) (this.panelW*0.6) - widthComponent/2, (int) (this.panelH*0.50) - heightComponent/2, widthComponent, heightComponent);
         pseudoChange.setBounds((int) (this.panelW*0.6) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
 
         //POSITION FIELD
         emailField.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
         passwordField.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
-        passwordConfirmedField.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.50) - heightComponent/2, widthComponent, heightComponent);
         pseudoField.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
 
         this.add(submit);
@@ -75,71 +76,48 @@ public class UpdateUserPanel extends JPanel{
 
         //CHANGE
         this.add(passwordChange);
-        this.add(passwordConfirmedChange);
         this.add(emailChange);
         this.add(pseudoChange);
 
         //FIELD
         this.add(passwordField);
         this.add(emailField);
-        this.add(passwordConfirmedField);
         this.add(pseudoField);
 
         //INVISIBLE FILED
         emailField.setVisible(false);
         passwordField.setVisible(false);
-        passwordConfirmedField.setVisible(false);
         pseudoField.setVisible(false);
 
         //BG COLOR
         this.setBackground(Color.gray);
 
         //CONDITION EMAIL
-        emailChange.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Object source = e.getSource();
-                if (source == emailChange) {
-                    //EMAIL
-                    emailLabel.setVisible(false);
-                    emailField.setVisible(true);
-                }
+        emailChange.addActionListener(event -> {
+            ArrayList<String> whiteListElements = WhiteListController.getElements();
+            String email = JOptionPane.showInputDialog(frame, "Renseignez le nouvel email :");
+            if(email.matches("([a-zA-Z]{1,30}(.|)[a-zA-Z]{1,30}@[a-zA-Z]{1,30}.(com|fr))") && whiteListElements.contains(email)) {
+                System.out.println("ok");
+            } else {
+                JOptionPane.showMessageDialog(frame, "L'email est incorrect ou n'a pas été validé par l'administrateur", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         });
 
         //CONDITION PASSWORD
-        passwordChange.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Object source = e.getSource();
-                if (source == passwordChange) {
-                    //PASSWORD
-                    passwordLabel.setVisible(false);
-                    passwordField.setVisible(true);
-                }
-            }
-        });
-
-        //CONDITION CONRFIMED PASSWORD
-        passwordConfirmedChange.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Object source = e.getSource();
-                if (source == passwordConfirmedChange) {
-                    //PASSWORD
-                    passwordConfirmedLabel.setVisible(false);
-                    passwordConfirmedField.setVisible(true);
-                }
+        passwordChange.addActionListener(event -> {
+            String password = JOptionPane.showInputDialog(frame, "Renseignez votre nouveau mot de passe :");
+            String confirmation = JOptionPane.showInputDialog(frame, "Confirmation du mot de passe :");
+            if(password.matches(confirmation)) {
+                DatabaseConnexion.updatePassword(PasswordController.hashPassword(password), WindowScreen.userId);;
+            } else {
+                JOptionPane.showMessageDialog(frame, "Les deux mots de passes ne correspondent pas", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         });
 
         //CONDITION PSEUDO
-        pseudoChange.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Object source = e.getSource();
-                if (source == pseudoChange) {
-                    //PASSWORD
-                    pseudoLabel.setVisible(false);
-                    pseudoField.setVisible(true);
-                }
-            }
+        pseudoChange.addActionListener(event -> {
+            String pseudo = JOptionPane.showInputDialog(frame, "Renseignez votre nouveau pseudo :");
+            DatabaseConnexion.updatePseudo(pseudo, WindowScreen.userId);
         });
 
         //CONDITION PSEUDO
@@ -157,8 +135,6 @@ public class UpdateUserPanel extends JPanel{
                     passwordField.setVisible(false);
 
                     //Confirmed Password
-                    passwordConfirmedLabel.setVisible(true);
-                    passwordConfirmedField.setVisible(false);
 
                     //Pseudo
                     pseudoLabel.setVisible(true);

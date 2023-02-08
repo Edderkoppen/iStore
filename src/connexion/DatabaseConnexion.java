@@ -217,6 +217,20 @@ public class DatabaseConnexion {
         }
     }
 
+    public static void deleteUser(int id) {
+        String querie = "delete from user\n" +
+                        "where id_user = " + id + ";";
+
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
     /**
      * Récupère les noms des magasins, et les noms et prénoms des utilisateurs en ayant l'accès.
      *
@@ -303,7 +317,45 @@ public class DatabaseConnexion {
         return listResult;
     }
 
+    public static void updatePassword(String newPassword, int id) {
+        String querie = "update user\n" +
+                "set password = " + newPassword + "\n" +
+                "where id_user = " + id + ";";
 
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void updateEmail(String email, int id) {
+        String querie = "update user\n" +
+                "set email = " + email + "\n" +
+                "where id_user = " + id + ";";
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void updatePseudo(String pseudo, int id) {
+        String querie = "update user\n" +
+                "set pseudo = " + pseudo + "\n" +
+                "where id_user = " + id + ";";
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public static void insertNewUser(String email, String password, String pseudo, String firstName, String surname) {
         String querie = "insert into user (email, password, pseudo, first_name, surname, id_role, id_store)\n" +
                 "value ('" + email + "', '" + password + "', '" + pseudo + "', '" + firstName + "', '" + surname + "', 2, null);";

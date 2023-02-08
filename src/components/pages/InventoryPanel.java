@@ -66,7 +66,7 @@ public class InventoryPanel extends JPanel{
                         itemPanel.add(manual);
                         manual.addActionListener(event -> {
                             if(manual.getText().matches("-(\\d{1,5}|\\s\\d{1,5})")) {
-                                if(manual.getText().replaceAll("\\D", "") != "") {
+                                if(!manual.getText().replaceAll("\\D", "").matches("")) {
                                     if(DatabaseConnexion.getItemQuantity(finalTmp) - Integer.parseInt(manual.getText().replaceAll("\\D", "")) >= 0) {
                                         DatabaseConnexion.updateInventoryQuantity(DatabaseConnexion.getItemQuantity(finalTmp), Integer.parseInt(manual.getText().replaceAll("\\D", "")), finalTmp, "-");
                                         WindowScreen.pageInventoryRedraw(frame, pan, panelW, panelH);
@@ -75,7 +75,7 @@ public class InventoryPanel extends JPanel{
                                         JOptionPane.showMessageDialog(this, "Vous ne pouvez pas avoir une quantité négative ", "Erreur", JOptionPane.ERROR_MESSAGE);
                                     }
                                 }
-                            } else {
+                            } else if (!manual.getText().replaceAll("\\D", "").matches("")){
                                 DatabaseConnexion.updateInventoryQuantity(DatabaseConnexion.getItemQuantity(finalTmp), Integer.parseInt(manual.getText().replaceAll("\\D", "")), finalTmp, "+");
                                 WindowScreen.pageInventoryRedraw(frame, pan, panelW, panelH);
                             }

@@ -4,6 +4,7 @@ import components.fenetre.WindowScreen;
 import connexion.DatabaseConnexion;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
@@ -27,6 +28,7 @@ public class MenuBarSample extends JMenuBar {
         JMenu menuEmployee = new JMenu("Employés");
         JMenu menuUser = null;
 
+
         if(user != 0) {
             menuUser = new JMenu(DatabaseConnexion.getUserInfosFromId(user).get(1));
         }
@@ -37,6 +39,8 @@ public class MenuBarSample extends JMenuBar {
         JMenuItem itemSee = new JMenuItem("Voir");
         JMenuItem itemDeleteUser = new JMenuItem("Delete");
         JMenuItem itemSeeStore = new JMenuItem("Informations");
+        JMenuItem itemDelete = new JMenuItem("Supprimer");
+        JMenuItem itemUpdate = new JMenuItem("Mettre à jour");
 
         itemConnect.setIcon(new ImageIcon("src/assets/icons/about.png"));
         itemConnect.addActionListener(event -> WindowScreen.getFieldConnexion(frame, event));
@@ -48,11 +52,22 @@ public class MenuBarSample extends JMenuBar {
 
         itemSee.addActionListener(event -> WindowScreen.pageUpdateRedraw(frame, pan, screenW, screenH));
 
-
         itemDeleteUser.setMnemonic('D');
 
         itemSeeStore.setMnemonic('I');
         itemSeeStore.setIcon(new ImageIcon("src/assets/icons/about.png"));
+
+        itemDelete.addActionListener(event -> {
+
+            Object[] options = {"Je suis sur", "Annuler"};
+            int x = JOptionPane.showOptionDialog(this, "Vous allez supprimer votre compte utilisateur. Cette action est irréversible !", "Attention", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options,  options[1]);
+            if(x == 0) {
+                DatabaseConnexion.deleteUser(WindowScreen.userId);
+            }
+        });
+        itemUpdate.addActionListener(event -> {
+            WindowScreen.pageUpdateRedraw(frame, pan, screenW, screenH);
+        });
 
         menuAction.add(itemConnect);
         menuAction.addSeparator();
@@ -63,6 +78,10 @@ public class MenuBarSample extends JMenuBar {
         menuStore.add(itemDeleteUser);
 
         menuEmployee.add(itemSee);
+
+        menuUser.add(itemUpdate);
+        menuUser.addSeparator();
+        menuUser.add(itemDelete);
 
         this.add(menuAction);
         this.add(menuStore);

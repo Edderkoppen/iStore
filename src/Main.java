@@ -13,9 +13,7 @@ public class Main {
 
         DatabaseConnexion conn = new DatabaseConnexion();
 
-
         WindowScreen window = new WindowScreen(width, height);
         window.setVisible(true);
-
     }
 }

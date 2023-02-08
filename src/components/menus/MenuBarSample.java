@@ -43,7 +43,7 @@ public class MenuBarSample extends JMenuBar {
         JMenuItem itemUpdate = new JMenuItem("Mettre à jour");
 
         itemConnect.setIcon(new ImageIcon("src/assets/icons/about.png"));
-        itemConnect.addActionListener(event -> WindowScreen.getFieldConnexion(frame, event));
+//        itemConnect.addActionListener(event -> WindowScreen.getFieldConnexion(frame, event));
 
         itemDisconnect.setMnemonic('C');
         itemDisconnect.setIcon(new ImageIcon("src/assets/icons/about.png"));;

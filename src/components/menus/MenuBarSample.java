@@ -5,13 +5,6 @@ import connexion.DatabaseConnexion;
 import controller.WhiteListController;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-
-import static components.fenetre.WindowScreen.store;
-import static java.awt.event.InputEvent.*;
-import static java.awt.event.KeyEvent.VK_C;
 
 public class MenuBarSample extends JMenuBar {
     private JFrame frame;
@@ -85,12 +78,15 @@ public class MenuBarSample extends JMenuBar {
 
         });
 
+
         menuEmployee.add(itemDeleteUser);
 
 
         JMenu menuStore = new JMenu("Magasin");
         JMenuItem itemCreateStore = new JMenuItem("Créer");
         JMenuItem itemDeleteStore = new JMenuItem("Supprimer");
+        JMenuItem itemAttributeStore = new JMenuItem("Donner accès employé");
+        JMenuItem itemAttributeItem = new JMenuItem("Ajouter un item existant");
 
         menuStore.setMnemonic('M');
 
@@ -105,7 +101,7 @@ public class MenuBarSample extends JMenuBar {
 
         itemDeleteStore.setMnemonic('S');
         itemDeleteStore.addActionListener(event -> {
-            String store = JOptionPane.showInputDialog(frame, "Nom du store a supprimer :");
+            String store = JOptionPane.showInputDialog(frame, "Nom du store à supprimer :");
             String verif = DatabaseConnexion.getStore(store);
             if(store != null) {
                 if(verif != null) {
@@ -120,9 +116,66 @@ public class MenuBarSample extends JMenuBar {
 
         });
 
+        itemAttributeStore.setMnemonic('E');
+        itemAttributeStore.addActionListener(event -> {
+            String employee = JOptionPane.showInputDialog(frame, "Email de l'employé à qui fournir l'accès au magasin :");
+            String store = JOptionPane.showInputDialog(frame, "Magasin concerné :");
+            String verifEmployee = DatabaseConnexion.getEmail(employee);
+            String verifStore = DatabaseConnexion.getStore(store);
+
+            if(employee != null && store != null) {
+                if(verifEmployee != null && verifStore != null) {
+                    int id = DatabaseConnexion.getStoreId(store);
+                    DatabaseConnexion.updateStoreAttribution(id, employee);
+                    JOptionPane.showMessageDialog(frame, employee + " a désormais accès au magasin " + store, "Succes", JOptionPane.INFORMATION_MESSAGE);
+                    WindowScreen.pageInventoryRedraw(frame, pan, screenW, screenH);
+                } else if(verifEmployee == null) {
+                    JOptionPane.showMessageDialog(frame, "\'" + employee + "\' ne semble pas exister", "Erreur", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "\'" + store + "\' ne semble pas exister", "Erreur", JOptionPane.ERROR_MESSAGE);
+
+                }
+            }
+        });
+
+        itemAttributeItem.setMnemonic('I');
+        itemAttributeItem.addActionListener(event -> {
+            String item = JOptionPane.showInputDialog(frame, "Nom de la marchandise à enregistrer en magasin :");
+            String quantity = JOptionPane.showInputDialog(frame, "Quantité disponible :");
+            String store = JOptionPane.showInputDialog(frame, "Magasin concerné :");
+
+            String verifItem = DatabaseConnexion.getItem(item);
+            String verifStore = DatabaseConnexion.getStore(store);
+
+            if(item != null && store != null && quantity != null) {
+                if(quantity.matches("\\d{1,5}")) {
+                    if(verifItem != null && verifStore != null) {
+
+                        int idStore = DatabaseConnexion.getStoreId(store);
+                        int idItem = DatabaseConnexion.getItemId(item);
+                        DatabaseConnexion.updateInventory(idStore, idItem, Integer.parseInt(quantity));
+
+                        JOptionPane.showMessageDialog(frame, item + " est enregistré dans l'inventaire du magasin '" + store + "'", "Succes", JOptionPane.INFORMATION_MESSAGE);
+                        WindowScreen.pageInventoryRedraw(frame, pan, screenW, screenH);
+                    } else if(verifItem == null) {
+                        JOptionPane.showMessageDialog(frame, "\'" + item + "\' ne semble pas exister", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "\'" + store + "\' ne semble pas exister", "Erreur", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Mauvais format pour la quantité", "Erreur", JOptionPane.ERROR_MESSAGE);
+
+                }
+            }
+        });
+
         menuStore.add(itemCreateStore);
         menuStore.addSeparator();
         menuStore.add(itemDeleteStore);
+        menuStore.addSeparator();
+        menuStore.add(itemAttributeStore);
+        menuStore.addSeparator();
+        menuStore.add(itemAttributeItem);
 
 
 

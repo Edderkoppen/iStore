@@ -223,7 +223,6 @@ public class DatabaseConnexion {
                 "join item i on i.id_item = inventory.id_item\n" +
                 "set quantity = " + baseQuantity + signe + quantity + "\n" +
                 "where i.item_name like '" + itemName + "';";
-        ArrayList<String> listResult = new ArrayList<>();
 
         if(signe.matches("\\+") || baseQuantity - quantity >= 0) {
             try {
@@ -418,6 +417,20 @@ public class DatabaseConnexion {
         return listResult;
     }
 
+    public static void updateStoreAttribution(int store, String email) {
+        String querie = "update user\n" +
+                "set id_store = " + store + "\n" +
+                "where email like '" + email + "';";
+
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void updatePassword(String newPassword, int id) {
         String querie = "update user\n" +
                 "set password = " + newPassword + "\n" +
@@ -443,6 +456,44 @@ public class DatabaseConnexion {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static int getStoreId(String storeName) {
+        String querie = "select id_store from store\n" +
+                "where store.store_name like '" + storeName + "';";
+        int result = 0;
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+            if(res.next()) {
+                result = res.getInt("id_store");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+        return result;
+    }
+
+    public static int getItemId(String itemName) {
+        String querie = "select id_item from item\n" +
+                "where item.item_name like '" + itemName + "';";
+        int result = 0;
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+            if(res.next()) {
+                result = res.getInt("id_item");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+        return result;
     }
 
     public static String getItem(String itemName) {
@@ -507,6 +558,18 @@ public class DatabaseConnexion {
                 "where id_store =\n" +
                 "(select id_store from store\n" +
                 "where store_name like '" + storeName + "');";
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void updateInventory(int store, int item, int quantity) {
+        String querie = "insert into inventory (id_store, id_item, quantity) \n" +
+                "value (" + store + ", " + item + ", " + quantity + ");";
         try {
             Statement stmt = database.createStatement();
             stmt.executeUpdate(querie);

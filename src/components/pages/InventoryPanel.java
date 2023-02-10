@@ -17,12 +17,12 @@ public class InventoryPanel extends JPanel{
         this.panelW = panelW;
         this.panelH = panelH;
 
-        this.setBackground(Color.PINK);
+        this.setBackground(Color.getHSBColor(250, 210, 50));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setBorder(new EmptyBorder(new Insets(100, 100, 100, 150)));
+        this.setBorder(new EmptyBorder(new Insets(100, 0, 100, 30)));
 
         JPanel itemPanel = new JPanel();
-        itemPanel.setBackground(Color.PINK);
+        itemPanel.setBackground(Color.getHSBColor(250, 210, 50));
         itemPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
         itemPanel.setPreferredSize(new Dimension(100, 30));
 
@@ -84,7 +84,7 @@ public class InventoryPanel extends JPanel{
                         infoNumber = 0;
                         this.add(itemPanel);
                         itemPanel = new JPanel();
-                        itemPanel.setBackground(Color.PINK);
+                        itemPanel.setBackground(Color.getHSBColor(250, 210, 50));
                         itemPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
                         itemPanel.setPreferredSize(new Dimension(100, 30));
                     }

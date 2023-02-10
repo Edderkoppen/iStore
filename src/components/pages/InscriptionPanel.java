@@ -25,57 +25,57 @@ public class InscriptionPanel extends JPanel {
 
         //FIRST NAME
         JLabel firstNameLabel = new JLabel("Prénom :");
-        firstNameLabel.setBounds((int) (this.panelW*0.40) - widthComponent/2, (int) (this.panelH*0.20) - heightComponent/2, widthComponent, heightComponent);
+        firstNameLabel.setBounds((int) (this.panelW*0.30) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
         this.add(firstNameLabel);
         JTextField firstNameField = new JTextField();
-        firstNameField.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.20) - heightComponent/2, widthComponent, heightComponent);
+        firstNameField.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
         this.add(firstNameField);
 
         //SURNAME
         JLabel surnameLabel = new JLabel("Nom :");
-        surnameLabel.setBounds((int) (this.panelW*0.40) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
+        surnameLabel.setBounds((int) (this.panelW*0.30) - widthComponent/2, (int) (this.panelH*0.50) - heightComponent/2, widthComponent, heightComponent);
         this.add(surnameLabel);
         JTextField surnameField = new JTextField();
-        surnameField.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
+        surnameField.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.50) - heightComponent/2, widthComponent, heightComponent);
         this.add(surnameField);
 
         //PSEUDO
         JLabel pseudoLabel = new JLabel("Pseudo :");
-        pseudoLabel.setBounds((int) (this.panelW*0.40) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
+        pseudoLabel.setBounds((int) (this.panelW*0.30) - widthComponent/2, (int) (this.panelH*0.70) - heightComponent/2, widthComponent, heightComponent);
         this.add(pseudoLabel);
         JTextField pseudoField = new JTextField();
-        pseudoField.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
+        pseudoField.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.70) - heightComponent/2, widthComponent, heightComponent);
         this.add(pseudoField);
 
         //E-MAIL
         JLabel emailLabel = new JLabel("E-mail :");
-        emailLabel.setBounds((int) (this.panelW*0.40) - widthComponent/2, (int) (this.panelH*0.50) - heightComponent/2, widthComponent, heightComponent);
+        emailLabel.setBounds((int) (this.panelW*0.30) - widthComponent/2, (int) (this.panelH*0.90) - heightComponent/2, widthComponent, heightComponent);
         this.add(emailLabel);
         JTextField emailField = new JTextField();
-        emailField.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.50) - heightComponent/2, widthComponent, heightComponent);
+        emailField.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.90) - heightComponent/2, widthComponent, heightComponent);
         this.add(emailField);
 
         //PASSWORD
         JLabel passwordLabel = new JLabel("Mot de passe :");
-        passwordLabel.setBounds((int) (this.panelW*0.35) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
+        passwordLabel.setBounds((int) (this.panelW*0.30) - widthComponent/2, (int) (this.panelH*1.10) - heightComponent/2, widthComponent, heightComponent);
         this.add(passwordLabel);
         JPasswordField passwordField = new JPasswordField();
-        passwordField.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
+        passwordField.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*1.10) - heightComponent/2, widthComponent, heightComponent);
         this.add(passwordField);
 
         //PASSWORD CONFIRMED
         JLabel passwordConfirmedLabel = new JLabel("Confirmation:");
-        passwordConfirmedLabel.setBounds((int) (this.panelW*0.35) - widthComponent/2, (int) (this.panelH*0.70) - heightComponent/2, widthComponent, heightComponent);
+        passwordConfirmedLabel.setBounds((int) (this.panelW*0.30) - widthComponent/2, (int) (this.panelH*1.30) - heightComponent/2, widthComponent, heightComponent);
         this.add(passwordConfirmedLabel);
         JPasswordField passwordConfirmedField = new JPasswordField();
-        passwordConfirmedField.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.70) - heightComponent/2, widthComponent, heightComponent);
+        passwordConfirmedField.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*1.30) - heightComponent/2, widthComponent, heightComponent);
         this.add(passwordConfirmedField);
 
         ArrayList<String> whiteListElements = WhiteListController.getElements();
 
         //SUBMIT
         JButton submit = new JButton("S'inscrire");
-        submit.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.80) - heightComponent/2, widthComponent, heightComponent);
+        submit.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*1.50) - heightComponent/2, widthComponent, heightComponent);
         submit.addActionListener(event -> {
 
             if (firstNameField.getText().isEmpty() || surnameField.getText().isEmpty() || emailField.getText().isEmpty() ||
@@ -107,6 +107,7 @@ public class InscriptionPanel extends JPanel {
 
         this.add(submit);
 
-        this.setBackground(Color.gray);
+        this.setBackground(Color.getHSBColor(250, 210, 50));
+
     }
 }

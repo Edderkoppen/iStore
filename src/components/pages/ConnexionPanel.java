@@ -32,13 +32,13 @@ public class ConnexionPanel extends JPanel {
 
         JButton submit = new JButton("Se connecter");
 
-        userNameLabel.setBounds((int) (this.panelW*0.40) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
-        userNameField.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
+        userNameLabel.setBounds((int) (this.panelW*0.25) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
+        userNameField.setBounds((int) (this.panelW*0.60) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
 
-        passwordLabel.setBounds((int) (this.panelW*0.35) - widthComponent/2, (int) (this.panelH*0.50) - heightComponent/2, widthComponent, heightComponent);
-        passwordField.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.50) - heightComponent/2, widthComponent, heightComponent);
+        passwordLabel.setBounds((int) (this.panelW*0.25) - widthComponent/2, (int) (this.panelH*0.80) - heightComponent/2, widthComponent, heightComponent);
+        passwordField.setBounds((int) (this.panelW*0.60) - widthComponent/2, (int) (this.panelH*0.80) - heightComponent/2, widthComponent, heightComponent);
 
-        submit.setBounds((int) (this.panelW*0.55) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
+        submit.setBounds((int) (this.panelW*0.60) - widthComponent/2, (int) (this.panelH*1) - heightComponent/2, widthComponent, heightComponent);
         submit.addActionListener(event -> {
             String email = DatabaseConnexion.getEmail(userNameField.getText());
 
@@ -65,6 +65,6 @@ public class ConnexionPanel extends JPanel {
         this.add(passwordField);
         this.add(submit);
 
-        this.setBackground(Color.orange);
+        this.setBackground(Color.gray);
     }
 }

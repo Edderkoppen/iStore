@@ -17,6 +17,7 @@ public class WindowScreen extends JFrame {
     private final Font font;
     private JPanel panel;
     public static int userId;
+    public static int idTmp;
     public static String store;
 
     public WindowScreen(int width, int height) {

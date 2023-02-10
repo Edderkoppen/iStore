@@ -92,8 +92,9 @@ public class UpdateUserPanel extends JPanel{
 
             if(email != null) {
                 if(email.matches("([a-zA-Z]{1,30}(.|)[a-zA-Z]{1,30}@[a-zA-Z]{1,30}.(com|fr))") && whiteListElements.contains(email)) {
-                    DatabaseConnexion.updateEmail(email, WindowScreen.userId);
-                    WindowScreen.pageUpdateRedraw(frame, pan, panelW, panelH, WindowScreen.userId);
+                    int idUser = WindowScreen.idTmp != 0 ? WindowScreen.idTmp : WindowScreen.userId;
+                    DatabaseConnexion.updateEmail(email, idUser);
+                    WindowScreen.pageUpdateRedraw(frame, pan, panelW, panelH, idUser);
                 } else {
                     JOptionPane.showMessageDialog(frame, "L'email est incorrect ou n'a pas été validé par l'administrateur", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
@@ -107,7 +108,8 @@ public class UpdateUserPanel extends JPanel{
             if(password != null) {
                 String confirmation = JOptionPane.showInputDialog(frame, "Confirmation du mot de passe :");
                 if(password.matches(confirmation)) {
-                    DatabaseConnexion.updatePassword(PasswordController.hashPassword(password), WindowScreen.userId);
+                    int idUser = WindowScreen.idTmp != 0 ? WindowScreen.idTmp : WindowScreen.userId;
+                    DatabaseConnexion.updatePassword(PasswordController.hashPassword(password), idUser);
                 } else {
                     JOptionPane.showMessageDialog(frame, "Les deux mots de passes ne correspondent pas", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
@@ -119,8 +121,9 @@ public class UpdateUserPanel extends JPanel{
         pseudoChange.addActionListener(event -> {
             String pseudo = JOptionPane.showInputDialog(frame, "Renseignez votre nouveau pseudo :");
             if(pseudo != null) {
-                DatabaseConnexion.updatePseudo(pseudo, WindowScreen.userId);
-                WindowScreen.pageUpdateRedraw(frame, pan, panelW, panelH, WindowScreen.userId);
+                int idUser = WindowScreen.idTmp != 0 ? WindowScreen.idTmp : WindowScreen.userId;
+                DatabaseConnexion.updatePseudo(pseudo, idUser);
+                WindowScreen.pageUpdateRedraw(frame, pan, panelW, panelH, idUser);
             }
         });
 

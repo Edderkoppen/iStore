@@ -50,6 +50,7 @@ public class TreeSample extends JTree {
                         if(role == 2) {
                             JOptionPane.showMessageDialog(frame, "Prénom : " + informations.get(1) + "\nNom : " + informations.get(2) + "\nAdresse mail : " + informations.get(0), "Informations employé", JOptionPane.INFORMATION_MESSAGE);
                         } else if(role == 1) {
+                            WindowScreen.idTmp = DatabaseConnexion.getIdFromName(informations.get(1));
                             Object[] options = {"Ok", "Modifier"};
                             int x = JOptionPane.showOptionDialog(frame, "Prénom : " + informations.get(1) + "\nNom : " + informations.get(2) + "\nAdresse mail : " + informations.get(0), "Informations employé", JOptionPane.INFORMATION_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options,  options[0]);
                             if(x == 1) {

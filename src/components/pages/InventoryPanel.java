@@ -17,13 +17,14 @@ public class InventoryPanel extends JPanel{
         this.panelW = panelW;
         this.panelH = panelH;
 
-        this.setBackground(Color.PINK);
+        this.setBackground(Color.getHSBColor(250, 210, 50));
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.setBorder(new EmptyBorder(new Insets(100, 100, 100, 150)));
+        this.setBorder(new EmptyBorder(new Insets(100, 0, 100, 30)));
 
         JPanel itemPanel = new JPanel();
-        itemPanel.setBackground(Color.PINK);
-        itemPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
+        itemPanel.setBackground(Color.getHSBColor(250, 210, 50));
+
+        itemPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 25, 0));
         itemPanel.setPreferredSize(new Dimension(100, 30));
 
         ArrayList<String> informations = DatabaseConnexion.getStoreInventory(DatabaseConnexion.getNameStoreId(WindowScreen.userId));
@@ -84,8 +85,8 @@ public class InventoryPanel extends JPanel{
                         infoNumber = 0;
                         this.add(itemPanel);
                         itemPanel = new JPanel();
-                        itemPanel.setBackground(Color.PINK);
-                        itemPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 30, 0));
+                        itemPanel.setBackground(Color.getHSBColor(250, 210, 50));
+                        itemPanel.setLayout(new FlowLayout(FlowLayout.TRAILING, 20, 0));
                         itemPanel.setPreferredSize(new Dimension(100, 30));
                     }
 

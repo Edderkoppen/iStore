@@ -31,7 +31,7 @@ public class UpdateUserPanel extends JPanel{
         JLabel first_nameLabel = new JLabel("first_name");
         JLabel surnameLabel = new JLabel("surname");
         JLabel passwordConfirmedLabel = new JLabel("Confirmation:");
-        JButton submit = new JButton("Sauvegarder");
+
 
         //BUTTON
         JButton emailChange = new JButton("Modifier");
@@ -44,26 +44,24 @@ public class UpdateUserPanel extends JPanel{
         JPasswordField pseudoField = new JPasswordField();
 
         //POSITION LABEL
-        infoLabel.setBounds((int) (this.panelW*0.5) - widthComponent/2, (int) (this.panelH*0.10) - heightComponent/2, widthComponent, heightComponent);
-        first_nameLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.20) - heightComponent/2, widthComponent, heightComponent);
-        surnameLabel.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.20) - heightComponent/2, widthComponent, heightComponent);
-        emailLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
-        passwordLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
-        pseudoLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
-        submit.setBounds((int) (this.panelW*0.5) - widthComponent/2, (int) (this.panelH*0.80) - heightComponent/2, widthComponent, heightComponent);
+        infoLabel.setBounds((int) (this.panelW*1.2) - widthComponent/2, (int) (this.panelH*0.20) - heightComponent/2, widthComponent, heightComponent);
+        first_nameLabel.setBounds((int) (this.panelW*0.9) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
+        surnameLabel.setBounds((int) (this.panelW*0.9) - widthComponent/2, (int) (this.panelH) - heightComponent/2, widthComponent, heightComponent);
+        emailLabel.setBounds((int) (this.panelW*0.9) - widthComponent/2, (int) (this.panelH*1.40) - heightComponent/2, widthComponent, heightComponent);
+        passwordLabel.setBounds((int) (this.panelW*0.9) - widthComponent/2, (int) (this.panelH*1.80) - heightComponent/2, widthComponent, heightComponent);
+        pseudoLabel.setBounds((int) (this.panelW*0.9) - widthComponent/2, (int) (this.panelH*2.2) - heightComponent/2, widthComponent, heightComponent);
 
 
         //POSITION CHANGE
-        emailChange.setBounds((int) (this.panelW*0.6) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
-        passwordChange.setBounds((int) (this.panelW*0.6) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
-        pseudoChange.setBounds((int) (this.panelW*0.6) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
+        emailChange.setBounds((int) (this.panelW*1.4) - widthComponent/2, (int) (this.panelH*1.40) - heightComponent/2, widthComponent, heightComponent);
+        passwordChange.setBounds((int) (this.panelW*1.4) - widthComponent/2, (int) (this.panelH*1.80) - heightComponent/2, widthComponent, heightComponent);
+        pseudoChange.setBounds((int) (this.panelW*1.4) - widthComponent/2, (int) (this.panelH*2.2) - heightComponent/2, widthComponent, heightComponent);
 
         //POSITION FIELD
-        emailField.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
-        passwordField.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
-        pseudoField.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
+        emailField.setBounds((int) (this.panelW*0.9) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
+        passwordField.setBounds((int) (this.panelW*0.9) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
+        pseudoField.setBounds((int) (this.panelW*0.9) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
 
-        this.add(submit);
 
         //LABEL
         this.add(infoLabel);
@@ -121,26 +119,6 @@ public class UpdateUserPanel extends JPanel{
         });
 
         //CONDITION PSEUDO
-        submit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Object source = e.getSource();
-                if (source == submit) {
 
-                    //Email
-                    emailLabel.setVisible(true);
-                    emailField.setVisible(false);
-
-                    //Password
-                    passwordLabel.setVisible(true);
-                    passwordField.setVisible(false);
-
-                    //Confirmed Password
-
-                    //Pseudo
-                    pseudoLabel.setVisible(true);
-                    pseudoField.setVisible(false);
-                }
-            }
-        });
     }
 }

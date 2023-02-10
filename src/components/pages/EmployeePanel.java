@@ -26,9 +26,9 @@ public class EmployeePanel extends JPanel{
         JLabel first_nameLabel = new JLabel(infos.get(1));
         JLabel surnameLabel = new JLabel(infos.get(2));
 
-        emailLabel.setBounds((int) (this.panelW*0.5) - widthComponent/2, (int) (this.panelH*0.35) - heightComponent/2, widthComponent, heightComponent);
-        first_nameLabel.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.35) - heightComponent/2, widthComponent, heightComponent);
-        surnameLabel.setBounds((int) (this.panelW*0.75) - widthComponent/2, (int) (this.panelH*0.35) - heightComponent/2, widthComponent, heightComponent);
+        emailLabel.setBounds((int) (this.panelW*0.9) - widthComponent/2, (int) (this.panelH*0.35) - heightComponent/2, widthComponent, heightComponent);
+        first_nameLabel.setBounds((int) (this.panelW*1.6) - widthComponent/2, (int) (this.panelH*0.35) - heightComponent/2, widthComponent, heightComponent);
+        surnameLabel.setBounds((int) (this.panelW*1.9) - widthComponent/2, (int) (this.panelH*0.35) - heightComponent/2, widthComponent, heightComponent);
 
         this.add(emailLabel);
         this.add(first_nameLabel);

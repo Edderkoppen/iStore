@@ -293,6 +293,29 @@ public class DatabaseConnexion {
 
         return result;
     }
+
+    public static ArrayList<String> getAllStoreInfos() {
+
+        String querie = "select s.store_name, u.first_name, u.surname from store s\n" +
+                "inner join user u on s.id_store = u.id_store\n" +
+                "order by s.store_name;";
+
+        ArrayList<String> listResult = new ArrayList<>();
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+
+            while (res.next()) {
+                listResult.add(res.getString("store_name"));
+                listResult.add(res.getString("first_name") + " " + res.getString("surname"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return listResult;
+    }
+
     /**
      * Récupère les noms des magasins, et les noms et prénoms des utilisateurs en ayant l'accès.
      *
@@ -421,6 +444,20 @@ public class DatabaseConnexion {
     public static void insertNewUser(String email, String password, String pseudo, String firstName, String surname) {
         String querie = "insert into user (email, password, pseudo, first_name, surname, id_role, id_store)\n" +
                 "value ('" + email + "', '" + password + "', '" + pseudo + "', '" + firstName + "', '" + surname + "', 2, null);";
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
+
+    public static void createStore(String storeName) {
+        String querie = "insert into store (store_name)\n" +
+                "value ('" + storeName + "';";
+
         try {
             Statement stmt = database.createStatement();
             stmt.executeUpdate(querie);

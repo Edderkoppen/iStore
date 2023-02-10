@@ -17,7 +17,9 @@ public class TreeSample extends JTree {
 
     public static JTree createTree(String nameStore, JFrame frame, JPanel pan, int screenW, int screenH) {
         DefaultMutableTreeNode store = new DefaultMutableTreeNode("Magasins");
-        ArrayList<String> storeInfos = DatabaseConnexion.getStoreInfos(nameStore);
+        int role = DatabaseConnexion.getRoleFromId(WindowScreen.userId);
+
+        ArrayList<String> storeInfos = role == 1 ? DatabaseConnexion.getAllStoreInfos() : DatabaseConnexion.getStoreInfos(nameStore);
         ArrayList<String> storeName = DatabaseConnexion.getStoreName();
         ArrayList<String> storeVerified = new ArrayList<>();
 

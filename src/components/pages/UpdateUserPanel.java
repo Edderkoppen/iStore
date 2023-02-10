@@ -7,8 +7,6 @@ import controller.WhiteListController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class UpdateUserPanel extends JPanel{
@@ -93,28 +91,36 @@ public class UpdateUserPanel extends JPanel{
             ArrayList<String> whiteListElements = WhiteListController.getElements();
             String email = JOptionPane.showInputDialog(frame, "Renseignez le nouvel email :");
 
-            if(email.matches("([a-zA-Z]{1,30}(.|)[a-zA-Z]{1,30}@[a-zA-Z]{1,30}.(com|fr))") && whiteListElements.contains(email)) {
-                DatabaseConnexion.updateEmail(email, WindowScreen.userId);
-            } else {
-                JOptionPane.showMessageDialog(frame, "L'email est incorrect ou n'a pas été validé par l'administrateur", "Erreur", JOptionPane.ERROR_MESSAGE);
+            if(email != null) {
+                if(email.matches("([a-zA-Z]{1,30}(.|)[a-zA-Z]{1,30}@[a-zA-Z]{1,30}.(com|fr))") && whiteListElements.contains(email)) {
+                    DatabaseConnexion.updateEmail(email, WindowScreen.userId);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "L'email est incorrect ou n'a pas été validé par l'administrateur", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
             }
+
         });
 
         //CONDITION PASSWORD
         passwordChange.addActionListener(event -> {
             String password = JOptionPane.showInputDialog(frame, "Renseignez votre nouveau mot de passe :");
-            String confirmation = JOptionPane.showInputDialog(frame, "Confirmation du mot de passe :");
-            if(password.matches(confirmation)) {
-                DatabaseConnexion.updatePassword(PasswordController.hashPassword(password), WindowScreen.userId);;
-            } else {
-                JOptionPane.showMessageDialog(frame, "Les deux mots de passes ne correspondent pas", "Erreur", JOptionPane.ERROR_MESSAGE);
+            if(password != null) {
+                String confirmation = JOptionPane.showInputDialog(frame, "Confirmation du mot de passe :");
+                if(password.matches(confirmation)) {
+                    DatabaseConnexion.updatePassword(PasswordController.hashPassword(password), WindowScreen.userId);;
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Les deux mots de passes ne correspondent pas", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
             }
+
         });
 
         //CONDITION PSEUDO
         pseudoChange.addActionListener(event -> {
             String pseudo = JOptionPane.showInputDialog(frame, "Renseignez votre nouveau pseudo :");
-            DatabaseConnexion.updatePseudo(pseudo, WindowScreen.userId);
+            if(pseudo != null) {
+                DatabaseConnexion.updatePseudo(pseudo, WindowScreen.userId);
+            }
         });
 
     }

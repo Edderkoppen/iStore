@@ -35,7 +35,13 @@ public class MenuBarSample extends JMenuBar {
         menuUser.setMnemonic('U');
 
         itemDisconnect.setMnemonic('D');
-        itemDisconnect.addActionListener(event -> WindowScreen.pageConnexionRedraw(frame, pan, screenW, screenH));
+        itemDisconnect.addActionListener(event -> {
+            Object[] options = {"Oui", "Annuler"};
+            int x = JOptionPane.showOptionDialog(this, "Voulez-vous vous déconnecter ?", "Déconnexion", JOptionPane.WARNING_MESSAGE, JOptionPane.WARNING_MESSAGE, null, options,  options[1]);
+            if(x == 0) {
+                WindowScreen.pageConnexionRedraw(frame, pan, screenW, screenH);
+            }
+        });
 
         itemUpdateMe.setMnemonic('M');
         itemUpdateMe.addActionListener(event -> {
@@ -67,12 +73,15 @@ public class MenuBarSample extends JMenuBar {
         itemDeleteUser.addActionListener(event -> {
             String email = JOptionPane.showInputDialog(frame, "Email de l'utilisateur à supprimer :");
             String verif = DatabaseConnexion.getEmail(email);
-            if(verif != null) {
-                DatabaseConnexion.deleteUserFromEmail(email);
-                JOptionPane.showMessageDialog(frame, "L'utilisateur " + email + " est supprimé", "Succes", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(frame, "L'utilisateur " + email + " ne semble pas exister", "Erreur", JOptionPane.ERROR_MESSAGE);
+            if(email != null) {
+                if(verif != null) {
+                    DatabaseConnexion.deleteUserFromEmail(email);
+                    JOptionPane.showMessageDialog(frame, "L'utilisateur " + email + " est supprimé", "Succes", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "L'utilisateur " + email + " ne semble pas exister", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
             }
+
         });
 
         menuEmployee.add(itemDeleteUser);
@@ -85,18 +94,27 @@ public class MenuBarSample extends JMenuBar {
         menuStore.setMnemonic('M');
 
         itemCreateStore.setMnemonic('C');
-        itemCreateStore.addActionListener(event -> System.out.println("coucou"));
+        itemCreateStore.addActionListener(event -> {
+            String store = JOptionPane.showInputDialog(frame, "Nom du magasin à ajouter :");
+            if(store != null) {
+                DatabaseConnexion.createStore(store);
+                JOptionPane.showMessageDialog(frame, store + " a été ajouté à la liste des magasins", "Succes", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
         itemDeleteStore.setMnemonic('S');
         itemDeleteStore.addActionListener(event -> {
             String store = JOptionPane.showInputDialog(frame, "Nom du store a supprimer :");
             String verif = DatabaseConnexion.getStore(store);
-            if(verif != null) {
-                DatabaseConnexion.deleteStoreFromName(store);
-                JOptionPane.showMessageDialog(frame, store + " est supprimé de la liste des magasins", "Succes", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(frame, "\'" + store + "\' ne semble pas exister", "Erreur", JOptionPane.ERROR_MESSAGE);
+            if(store != null) {
+                if(verif != null) {
+                    DatabaseConnexion.deleteStoreFromName(store);
+                    JOptionPane.showMessageDialog(frame, store + " est supprimé de la liste des magasins", "Succes", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "\'" + store + "\' ne semble pas exister", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
             }
+
         });
 
         menuStore.add(itemCreateStore);
@@ -132,12 +150,15 @@ public class MenuBarSample extends JMenuBar {
         itemAddWhitelist.setMnemonic('A');
         itemAddWhitelist.addActionListener(event -> {
             String email = JOptionPane.showInputDialog(frame, "Email a whitelister :");
-            if(email.matches("([a-zA-Z]{1,30}(.|)[a-zA-Z]{1,30}@[a-zA-Z]{1,30}.(com|fr))")) {
-                WhiteListController.insertEmail(email);
-                JOptionPane.showMessageDialog(frame, email + " inséré dans la whitelist", "Succes", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(frame, "Impossible d'insérer " + email + " dans la whitelist. Mauvais format.", "Erreur", JOptionPane.ERROR_MESSAGE);
+            if(email != null) {
+                if(email.matches("([a-zA-Z]{1,30}(.|)[a-zA-Z]{1,30}@[a-zA-Z]{1,30}.(com|fr))")) {
+                    WhiteListController.insertEmail(email);
+                    JOptionPane.showMessageDialog(frame, email + " inséré dans la whitelist", "Succes", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Impossible d'insérer " + email + " dans la whitelist. Mauvais format.", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
             }
+
         });
 
         itemDeleteWhitelist.setMnemonic('S');
@@ -150,6 +171,9 @@ public class MenuBarSample extends JMenuBar {
                 JOptionPane.showMessageDialog(frame, email + " ne semble pas exister dans la whitelist", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
         });
+
+        menuWhitelist.add(itemAddWhitelist);
+        menuWhitelist.add(itemDeleteWhitelist);
 
         this.add(menuUser);
 

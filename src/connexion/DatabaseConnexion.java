@@ -47,6 +47,24 @@ public class DatabaseConnexion {
         return result;
     }
 
+    public static int getRoleFromId(int id) {
+        String querie = "SELECT id_role FROM user where id_user = " + id + ";";
+        int result = 0;
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+            if(res.next()) {
+                result = res.getInt("id_role");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
+
 
     public static String getPassword(String email) {
         String querie = "SELECT password FROM user where email like '" + email + "';";
@@ -113,7 +131,7 @@ public class DatabaseConnexion {
      * @return une arrayList contenant l'email, le prénom et le nom de l'utilisateur.
      */
     public static ArrayList<String> getUserInfos(String first_name, String last_name) {
-        String querie = "SELECT email, first_name, surname FROM user where first_name like '" + first_name + "' and surname like '" + last_name + "';";
+        String querie = "SELECT email, first_name, surname, pseudo FROM user where first_name like '" + first_name + "' and surname like '" + last_name + "';";
         ArrayList<String> listResult = new ArrayList<>();
 
         try {
@@ -134,7 +152,7 @@ public class DatabaseConnexion {
     }
 
     public static ArrayList<String> getUserInfosFromId(int id_user) {
-        String querie = "SELECT email, first_name, surname FROM user where id_user =" + id_user + ";";
+        String querie = "SELECT email, first_name, surname, pseudo FROM user where id_user =" + id_user + ";";
         ArrayList<String> listResult = new ArrayList<>();
 
         try {
@@ -145,6 +163,7 @@ public class DatabaseConnexion {
                 listResult.add(res.getString("email"));
                 listResult.add(res.getString("first_name"));
                 listResult.add(res.getString("surname"));
+                listResult.add(res.getString("pseudo"));
             }
 
         } catch (SQLException e) {
@@ -231,6 +250,49 @@ public class DatabaseConnexion {
 
     }
 
+    public static void deleteUserFromEmail(String email) {
+        String querie = "delete from user\n" +
+                "where email like '" + email + "';";
+
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void deleteStoreFromName(String store) {
+        String querie = "delete from store\n" +
+                "where store.store_name like '" + store + "';";
+
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String getStore(String store) {
+        String querie = "SELECT store_name FROM store where store.store_name like '" + store + "';";
+        String result = null;
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+            if(res.next()) {
+                result = res.getString("store_name");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+    }
     /**
      * Récupère les noms des magasins, et les noms et prénoms des utilisateurs en ayant l'accès.
      *

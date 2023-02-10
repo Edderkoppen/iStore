@@ -40,4 +40,37 @@ public class WhiteListController {
             throw new RuntimeException(ex);
         }
     }
+
+
+    public static boolean deleteEmail(String email) {
+        ArrayList<String> content = new ArrayList<>();
+        boolean exists = false;
+
+        try {
+            File file = new File("src/whitelist.txt");
+            FileReader fr = new FileReader(file);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+
+            while((line = br.readLine()) != null) {
+                if(!line.matches(email)) {
+                    content.add(line);
+                } else {
+                    exists = true;
+                }
+            }
+            fr.close();
+
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            for(String mail : content) {
+                bw.write(mail + "\n");
+            }
+            bw.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return exists;
+    }
 }

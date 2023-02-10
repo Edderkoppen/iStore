@@ -46,7 +46,7 @@ public class TreeSample extends JTree {
                     if(stringLastNode.matches("[a-z-A-Z]{1,30}\\s[a-z-A-Z]{1,30}")) {
                         String[] splitString = stringLastNode.split("\\s");
                         ArrayList<String> informations = DatabaseConnexion.getUserInfos(splitString[0], splitString[1]);
-                        WindowScreen.pageEmployeeRedraw(frame, pan, screenW, screenH, informations.get(1), informations.get(2));
+                        JOptionPane.showMessageDialog(frame, "Prénom : " + informations.get(1) + "\nNom : " + informations.get(2) + "\nAdresse mail : " + informations.get(0), "Informations employé", JOptionPane.INFORMATION_MESSAGE);
                     }
 
                 } else if(selRow == 1 && e.getClickCount() == 2) {

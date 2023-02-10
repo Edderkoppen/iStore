@@ -23,15 +23,14 @@ public class UpdateUserPanel extends JPanel{
         int widthComponent = 150;
         int heightComponent = 30;
 
+        ArrayList<String> test = DatabaseConnexion.getUserInfosFromId(WindowScreen.userId);
         //TEXTE
         JLabel infoLabel = new JLabel("Information utilisateur");
-        JLabel emailLabel = new JLabel("email");
-        JLabel passwordLabel = new JLabel("password");
-        JLabel pseudoLabel = new JLabel("pseudo");
-        JLabel first_nameLabel = new JLabel("first_name");
-        JLabel surnameLabel = new JLabel("surname");
-        JLabel passwordConfirmedLabel = new JLabel("Confirmation:");
-        JButton submit = new JButton("Sauvegarder");
+        JLabel emailLabel = new JLabel(test.get(0));
+        JLabel passwordLabel = new JLabel("********");
+        JLabel pseudoLabel = new JLabel(test.get(3));
+        JLabel first_nameLabel = new JLabel(test.get(1));
+        JLabel surnameLabel = new JLabel(test.get(2));
 
         //BUTTON
         JButton emailChange = new JButton("Modifier");
@@ -50,7 +49,6 @@ public class UpdateUserPanel extends JPanel{
         emailLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
         passwordLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
         pseudoLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
-        submit.setBounds((int) (this.panelW*0.5) - widthComponent/2, (int) (this.panelH*0.80) - heightComponent/2, widthComponent, heightComponent);
 
 
         //POSITION CHANGE
@@ -63,7 +61,6 @@ public class UpdateUserPanel extends JPanel{
         passwordField.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
         pseudoField.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
 
-        this.add(submit);
 
         //LABEL
         this.add(infoLabel);
@@ -72,7 +69,6 @@ public class UpdateUserPanel extends JPanel{
         this.add(pseudoLabel);
         this.add(first_nameLabel);
         this.add(surnameLabel);
-        this.add(passwordConfirmedLabel);
 
         //CHANGE
         this.add(passwordChange);
@@ -96,8 +92,9 @@ public class UpdateUserPanel extends JPanel{
         emailChange.addActionListener(event -> {
             ArrayList<String> whiteListElements = WhiteListController.getElements();
             String email = JOptionPane.showInputDialog(frame, "Renseignez le nouvel email :");
+
             if(email.matches("([a-zA-Z]{1,30}(.|)[a-zA-Z]{1,30}@[a-zA-Z]{1,30}.(com|fr))") && whiteListElements.contains(email)) {
-                System.out.println("ok");
+                DatabaseConnexion.updateEmail(email, WindowScreen.userId);
             } else {
                 JOptionPane.showMessageDialog(frame, "L'email est incorrect ou n'a pas été validé par l'administrateur", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
@@ -120,27 +117,5 @@ public class UpdateUserPanel extends JPanel{
             DatabaseConnexion.updatePseudo(pseudo, WindowScreen.userId);
         });
 
-        //CONDITION PSEUDO
-        submit.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Object source = e.getSource();
-                if (source == submit) {
-
-                    //Email
-                    emailLabel.setVisible(true);
-                    emailField.setVisible(false);
-
-                    //Password
-                    passwordLabel.setVisible(true);
-                    passwordField.setVisible(false);
-
-                    //Confirmed Password
-
-                    //Pseudo
-                    pseudoLabel.setVisible(true);
-                    pseudoField.setVisible(false);
-                }
-            }
-        });
     }
 }

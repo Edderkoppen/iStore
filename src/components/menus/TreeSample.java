@@ -8,7 +8,6 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreePath;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import static java.lang.String.valueOf;
@@ -48,7 +47,16 @@ public class TreeSample extends JTree {
                     if(stringLastNode.matches("[a-z-A-Z]{1,30}\\s[a-z-A-Z]{1,30}")) {
                         String[] splitString = stringLastNode.split("\\s");
                         ArrayList<String> informations = DatabaseConnexion.getUserInfos(splitString[0], splitString[1]);
-                        JOptionPane.showMessageDialog(frame, "Prénom : " + informations.get(1) + "\nNom : " + informations.get(2) + "\nAdresse mail : " + informations.get(0), "Informations employé", JOptionPane.INFORMATION_MESSAGE);
+                        if(role == 2) {
+                            JOptionPane.showMessageDialog(frame, "Prénom : " + informations.get(1) + "\nNom : " + informations.get(2) + "\nAdresse mail : " + informations.get(0), "Informations employé", JOptionPane.INFORMATION_MESSAGE);
+                        } else if(role == 1) {
+                            Object[] options = {"Ok", "Modifier"};
+                            int x = JOptionPane.showOptionDialog(frame, "Prénom : " + informations.get(1) + "\nNom : " + informations.get(2) + "\nAdresse mail : " + informations.get(0), "Informations employé", JOptionPane.INFORMATION_MESSAGE, JOptionPane.INFORMATION_MESSAGE, null, options,  options[0]);
+                            if(x == 1) {
+                                WindowScreen.pageUpdateRedraw(frame, pan, screenW, screenH, DatabaseConnexion.getIdFromName(informations.get(1)));
+                            }
+
+                        }
                     }
 
                 } else if(selRow == 1 && e.getClickCount() == 2) {

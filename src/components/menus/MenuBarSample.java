@@ -9,6 +9,7 @@ import javax.xml.crypto.Data;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
+import static components.fenetre.WindowScreen.store;
 import static java.awt.event.InputEvent.*;
 import static java.awt.event.KeyEvent.VK_C;
 
@@ -45,7 +46,7 @@ public class MenuBarSample extends JMenuBar {
 
         itemUpdateMe.setMnemonic('M');
         itemUpdateMe.addActionListener(event -> {
-            WindowScreen.pageUpdateRedraw(frame, pan, screenW, screenH);
+            WindowScreen.pageUpdateRedraw(frame, pan, screenW, screenH, WindowScreen.userId);
         });
 
         itemDeleteMe.setMnemonic('S');
@@ -108,11 +109,13 @@ public class MenuBarSample extends JMenuBar {
             String verif = DatabaseConnexion.getStore(store);
             if(store != null) {
                 if(verif != null) {
-                    DatabaseConnexion.deleteStoreFromName(store);
-                    JOptionPane.showMessageDialog(frame, store + " est supprimé de la liste des magasins", "Succes", JOptionPane.INFORMATION_MESSAGE);
+                    DatabaseConnexion.deleteStoreFromInventory(store);
+                    DatabaseConnexion.deleteStore(store);
+                    JOptionPane.showMessageDialog(frame, "'" + store + "' supprimé de la liste des magasins", "Succes", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(frame, "\'" + store + "\' ne semble pas exister", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
+
             }
 
         });
@@ -130,10 +133,30 @@ public class MenuBarSample extends JMenuBar {
         menuItem.setMnemonic('I');
 
         itemCreateItem.setMnemonic('C');
-        itemCreateItem.addActionListener(event -> System.out.println("coucou"));
+        itemCreateItem.addActionListener(event -> {
+            String item = JOptionPane.showInputDialog(frame, "Nom de la marchandise à ajouter :");
+            String itemPrice = JOptionPane.showInputDialog(frame, "Prix de la marchandise (au format x.x) :");
+            if(item != null && itemPrice != null) {
+                DatabaseConnexion.createItem(item, Double.parseDouble(itemPrice));
+                JOptionPane.showMessageDialog(frame, item + " a été ajouté à la liste des marchandises", "Succes", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
 
-        itemCreateItem.setMnemonic('S');
-        itemCreateItem.addActionListener(event -> System.out.println("coucou"));
+        itemDeleteItem.setMnemonic('S');
+        itemDeleteItem.addActionListener(event -> {
+            String item = JOptionPane.showInputDialog(frame, "Nom de la marchandise à supprimer :");
+            String verif = DatabaseConnexion.getItem(item);
+            if(item != null) {
+                if(verif != null) {
+                    DatabaseConnexion.deleteItemFromInventory(item);
+                    DatabaseConnexion.deleteItem(item);
+                    JOptionPane.showMessageDialog(frame, "'" + item + "' supprimé de la liste des marchandises", "Succes", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "\'" + item + "\' ne semble pas exister", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+
+        });
 
         menuItem.add(itemCreateItem);
         menuItem.addSeparator();

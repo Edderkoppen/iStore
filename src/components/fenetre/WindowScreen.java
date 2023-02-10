@@ -56,10 +56,10 @@ public class WindowScreen extends JFrame {
         pan.updateUI();
     }
 
-    public static void pageUpdateRedraw(JFrame frame, JPanel pan, int screenW, int screenH) {
+    public static void pageUpdateRedraw(JFrame frame, JPanel pan, int screenW, int screenH, int id) {
         pan.removeAll();
         frame.setJMenuBar(new MenuBarSample(frame, pan, screenW, screenH, userId));
-        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new UpdateUserPanel(frame, pan, screenW, screenH), screenW));
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new UpdateUserPanel(frame, pan, screenW, screenH, id), screenW));
         pan.updateUI();
     }
 

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class UpdateUserPanel extends JPanel{
     private final int panelW;
     private final int panelH;
-    public UpdateUserPanel(JFrame frame, JPanel pan, int panelW, int panelH) {
+    public UpdateUserPanel(JFrame frame, JPanel pan, int panelW, int panelH, int id) {
         super(null);
         this.panelW = panelW;
         this.panelH = panelH;
@@ -20,7 +20,7 @@ public class UpdateUserPanel extends JPanel{
         int widthComponent = 150;
         int heightComponent = 30;
 
-        ArrayList<String> test = DatabaseConnexion.getUserInfosFromId(WindowScreen.userId);
+        ArrayList<String> test = DatabaseConnexion.getUserInfosFromId(id);
         //TEXTE
         JLabel infoLabel = new JLabel("Information utilisateur");
         JLabel emailLabel = new JLabel(test.get(0));
@@ -93,7 +93,7 @@ public class UpdateUserPanel extends JPanel{
             if(email != null) {
                 if(email.matches("([a-zA-Z]{1,30}(.|)[a-zA-Z]{1,30}@[a-zA-Z]{1,30}.(com|fr))") && whiteListElements.contains(email)) {
                     DatabaseConnexion.updateEmail(email, WindowScreen.userId);
-                    WindowScreen.pageUpdateRedraw(frame, pan, panelW, panelH);
+                    WindowScreen.pageUpdateRedraw(frame, pan, panelW, panelH, WindowScreen.userId);
                 } else {
                     JOptionPane.showMessageDialog(frame, "L'email est incorrect ou n'a pas été validé par l'administrateur", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
@@ -120,7 +120,7 @@ public class UpdateUserPanel extends JPanel{
             String pseudo = JOptionPane.showInputDialog(frame, "Renseignez votre nouveau pseudo :");
             if(pseudo != null) {
                 DatabaseConnexion.updatePseudo(pseudo, WindowScreen.userId);
-                WindowScreen.pageUpdateRedraw(frame, pan, panelW, panelH);
+                WindowScreen.pageUpdateRedraw(frame, pan, panelW, panelH, WindowScreen.userId);
             }
         });
 

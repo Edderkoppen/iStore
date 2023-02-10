@@ -276,6 +276,22 @@ public class DatabaseConnexion {
         }
     }
 
+    public static int getIdFromName(String firstName)  {
+        String querie = "SELECT id_user FROM user where user.first_name like '" + firstName + "';";
+        int result = 0;
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+            if(res.next()) {
+                result = res.getInt("id_user");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+    }
     public static String getStore(String store) {
         String querie = "SELECT store_name FROM store where store.store_name like '" + store + "';";
         String result = null;
@@ -429,6 +445,77 @@ public class DatabaseConnexion {
         }
     }
 
+    public static String getItem(String itemName) {
+        String querie = "select item_name from item\n" +
+                "where item_name like '" + itemName + "';";
+        String result = null;
+
+        try {
+            Statement stmt = database.createStatement();
+            ResultSet res = stmt.executeQuery(querie);
+            if(res.next()) {
+                result = res.getString("item_name");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+
+        return result;
+    }
+    public static void deleteItem(String itemName) {
+        String querie = "delete from item\n" +
+                "where item_name like '" + itemName + "';";
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void deleteItemFromInventory(String itemName) {
+        String querie = "delete from inventory\n" +
+                "where id_item =\n" +
+                "(select id_item from item\n" +
+                "where item_name like '" + itemName + "');";
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public static void deleteStore(String storeName) {
+        String querie = "delete from store\n" +
+                "where store_name like '" + storeName + "';";
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public static void deleteStoreFromInventory(String storeName) {
+        String querie = "delete from inventory\n" +
+                "where id_store =\n" +
+                "(select id_store from store\n" +
+                "where store_name like '" + storeName + "');";
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void updatePseudo(String pseudo, int id) {
         String querie = "update user\n" +
                 "set pseudo = '" + pseudo + "'\n" +
@@ -457,7 +544,21 @@ public class DatabaseConnexion {
 
     public static void createStore(String storeName) {
         String querie = "insert into store (store_name)\n" +
-                "value ('" + storeName + "';";
+                "value ('" + storeName + "');";
+
+        try {
+            Statement stmt = database.createStatement();
+            stmt.executeUpdate(querie);
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+
+        }
+    }
+
+    public static void createItem(String itemName, double itemPrice) {
+        String querie = "insert into item (item_name, item_price)\n" +
+                "value ('" + itemName + "', " + itemPrice + ");";
 
         try {
             Statement stmt = database.createStatement();

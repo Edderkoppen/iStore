@@ -12,8 +12,7 @@ import java.util.ArrayList;
 public class UpdateUserPanel extends JPanel{
     private final int panelW;
     private final int panelH;
-    private JFrame frame;
-    public UpdateUserPanel(int panelW, int panelH) {
+    public UpdateUserPanel(JFrame frame, JPanel pan, int panelW, int panelH) {
         super(null);
         this.panelW = panelW;
         this.panelH = panelH;
@@ -46,7 +45,7 @@ public class UpdateUserPanel extends JPanel{
         surnameLabel.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.20) - heightComponent/2, widthComponent, heightComponent);
         emailLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
         passwordLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.40) - heightComponent/2, widthComponent, heightComponent);
-        pseudoLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.60) - heightComponent/2, widthComponent, heightComponent);
+        pseudoLabel.setBounds((int) (this.panelW*0.4) - widthComponent/2, (int) (this.panelH*0.80) - heightComponent/2, widthComponent, heightComponent);
 
 
         //POSITION CHANGE
@@ -94,6 +93,7 @@ public class UpdateUserPanel extends JPanel{
             if(email != null) {
                 if(email.matches("([a-zA-Z]{1,30}(.|)[a-zA-Z]{1,30}@[a-zA-Z]{1,30}.(com|fr))") && whiteListElements.contains(email)) {
                     DatabaseConnexion.updateEmail(email, WindowScreen.userId);
+                    WindowScreen.pageUpdateRedraw(frame, pan, panelW, panelH);
                 } else {
                     JOptionPane.showMessageDialog(frame, "L'email est incorrect ou n'a pas été validé par l'administrateur", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
@@ -107,7 +107,7 @@ public class UpdateUserPanel extends JPanel{
             if(password != null) {
                 String confirmation = JOptionPane.showInputDialog(frame, "Confirmation du mot de passe :");
                 if(password.matches(confirmation)) {
-                    DatabaseConnexion.updatePassword(PasswordController.hashPassword(password), WindowScreen.userId);;
+                    DatabaseConnexion.updatePassword(PasswordController.hashPassword(password), WindowScreen.userId);
                 } else {
                     JOptionPane.showMessageDialog(frame, "Les deux mots de passes ne correspondent pas", "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
@@ -120,6 +120,7 @@ public class UpdateUserPanel extends JPanel{
             String pseudo = JOptionPane.showInputDialog(frame, "Renseignez votre nouveau pseudo :");
             if(pseudo != null) {
                 DatabaseConnexion.updatePseudo(pseudo, WindowScreen.userId);
+                WindowScreen.pageUpdateRedraw(frame, pan, panelW, panelH);
             }
         });
 

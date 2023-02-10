@@ -42,13 +42,6 @@ public class WindowScreen extends JFrame {
 
     }
 
-//    public static void pageEmployeeRedraw(JFrame frame, JPanel pan, int screenW, int screenH, String firstName, String lastName) {
-//        pan.removeAll();
-//        frame.setJMenuBar(new MenuBarSample(frame, pan, screenW, screenH, userId));
-//        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new EmployeePanel((int) (screenW*0.66), (int) (screenH*0.66), pan, firstName, lastName), screenW));
-//        pan.updateUI();
-//    }
-
     public static void pageConnexionRedraw(JFrame frame, JPanel pan, int screenW, int screenH) {
         pan.removeAll();
         frame.setJMenuBar(null);
@@ -66,21 +59,21 @@ public class WindowScreen extends JFrame {
     public static void pageUpdateRedraw(JFrame frame, JPanel pan, int screenW, int screenH) {
         pan.removeAll();
         frame.setJMenuBar(new MenuBarSample(frame, pan, screenW, screenH, userId));
-        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new UpdateUserPanel((int) (screenW*0.66), (int) (screenH*0.66)), screenW));
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new UpdateUserPanel(frame, pan, screenW, screenH), screenW));
         pan.updateUI();
     }
 
     public static void storeCreateDeleteRedraw(JFrame frame, JPanel pan, int screenW, int screenH) {
         pan.removeAll();
         frame.setJMenuBar(new MenuBarSample(frame, pan, screenW, screenH, userId));
-        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new DeleteCreateStorePanel((int) (screenW*0.66), (int) (screenH*0.66)), screenW));
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new DeleteCreateStorePanel(screenW, screenH), screenW));
         pan.updateUI();
     }
 
     public static void itemCreateDeleteRedraw(JFrame frame, JPanel pan, int screenW, int screenH) {
         pan.removeAll();
         frame.setJMenuBar(new MenuBarSample(frame, pan, screenW, screenH, userId));
-        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new DeleteCreateItemPanel((int) (screenW*0.66), (int) (screenH*0.66)), screenW));
+        pan.add(SplitPaneSample.createSplitPane(TreeSample.createTree(DatabaseConnexion.getNameStoreId(WindowScreen.userId), frame, pan, screenW, screenH), new DeleteCreateItemPanel(screenW, screenH), screenW));
         pan.updateUI();
     }
 }

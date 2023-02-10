@@ -431,8 +431,9 @@ public class DatabaseConnexion {
 
     public static void updatePseudo(String pseudo, int id) {
         String querie = "update user\n" +
-                "set pseudo = " + pseudo + "\n" +
+                "set pseudo = '" + pseudo + "'\n" +
                 "where id_user = " + id + ";";
+        System.out.println(querie);
         try {
             Statement stmt = database.createStatement();
             stmt.executeUpdate(querie);

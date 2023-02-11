@@ -1,7 +1,6 @@
-import components.fenetre.WindowScreen;
-import connexion.DatabaseConnexion;
+import components.screen.WindowScreen;
+import controller.DatabaseConnexionController;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class Main {
@@ -11,7 +10,7 @@ public class Main {
         int width  = (int)dimension.getWidth();
         int height = (int)dimension.getHeight();
 
-        DatabaseConnexion conn = new DatabaseConnexion();
+        DatabaseConnexionController conn = new DatabaseConnexionController();
 
         WindowScreen window = new WindowScreen(width, height);
         window.setVisible(true);

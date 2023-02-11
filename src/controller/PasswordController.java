@@ -1,9 +1,16 @@
 package controller;
 
 import java.security.MessageDigest;
-import java.util.Objects;
 
 public class PasswordController {
+
+    /**
+     * Hash une chaine de caractère.
+     *
+     * @param password      Mot de passe à hasher.
+     *
+     * @return le hash du mot de passe.
+     */
     public static String hashPassword(String password) {
         StringBuffer hexData = new StringBuffer();
 

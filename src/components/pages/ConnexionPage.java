@@ -1,20 +1,20 @@
 package components.pages;
 
-import components.fenetre.WindowScreen;
-import connexion.DatabaseConnexion;
+import components.screen.WindowScreen;
+import controller.DatabaseConnexionController;
 import controller.PasswordController;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ConnexionPanel extends JPanel {
+public class ConnexionPage extends JPanel {
 
     private final int panelW;
     private final int panelH;
     private final JPanel pan;
-    private JFrame frame;
+    private final JFrame frame;
 
-    public ConnexionPanel(JFrame frame, int panelW, int panelH, JPanel pan) {
+    public ConnexionPage(JFrame frame, int panelW, int panelH, JPanel pan) {
         super(null);
         this.panelW = panelW;
         this.panelH = panelH;
@@ -38,16 +38,16 @@ public class ConnexionPanel extends JPanel {
         passwordLabel.setBounds((int) (this.panelW*0.25) - widthComponent/2, (int) (this.panelH*0.80) - heightComponent/2, widthComponent, heightComponent);
         passwordField.setBounds((int) (this.panelW*0.60) - widthComponent/2, (int) (this.panelH*0.80) - heightComponent/2, widthComponent, heightComponent);
 
-        submit.setBounds((int) (this.panelW*0.60) - widthComponent/2, (int) (this.panelH*1) - heightComponent/2, widthComponent, heightComponent);
+        submit.setBounds((int) (this.panelW*0.60) - widthComponent/2, this.panelH - heightComponent/2, widthComponent, heightComponent);
         submit.addActionListener(event -> {
-            String email = DatabaseConnexion.getEmail(userNameField.getText());
+            String email = DatabaseConnexionController.getEmail(userNameField.getText());
 
             if (email != null && userNameField.getText().matches(email)) {
                 String hashPswd = PasswordController.hashPassword(new String(passwordField.getPassword()));
-                String databasePswd = DatabaseConnexion.getPassword(email);
+                String databasePswd = DatabaseConnexionController.getPassword(email);
 
                 if(hashPswd.matches(databasePswd)) {
-                    WindowScreen.userId = DatabaseConnexion.getUserId(email);
+                    WindowScreen.userId = DatabaseConnexionController.getUserId(email);
                     WindowScreen.pageInventoryRedraw(this.frame, this.pan, this.panelW, this.panelH);
 
                 } else {

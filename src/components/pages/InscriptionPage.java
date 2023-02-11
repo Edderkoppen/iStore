@@ -1,6 +1,6 @@
 package components.pages;
 
-import connexion.DatabaseConnexion;
+import controller.DatabaseConnexionController;
 import controller.PasswordController;
 import controller.WhiteListController;
 
@@ -8,13 +8,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class InscriptionPanel extends JPanel {
-
+public class InscriptionPage extends JPanel {
     private final int panelW;
     private final int panelH;
     private final JPanel pan;
 
-    public InscriptionPanel(int panelW, int panelH, JPanel pan) {
+    public InscriptionPage(int panelW, int panelH, JPanel pan) {
         super(null);
         this.panelW = panelW;
         this.panelH = panelH;
@@ -23,7 +22,6 @@ public class InscriptionPanel extends JPanel {
         int widthComponent = 150;
         int heightComponent = 30;
 
-        //FIRST NAME
         JLabel firstNameLabel = new JLabel("Prénom :");
         firstNameLabel.setBounds((int) (this.panelW*0.30) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
         this.add(firstNameLabel);
@@ -31,7 +29,6 @@ public class InscriptionPanel extends JPanel {
         firstNameField.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.30) - heightComponent/2, widthComponent, heightComponent);
         this.add(firstNameField);
 
-        //SURNAME
         JLabel surnameLabel = new JLabel("Nom :");
         surnameLabel.setBounds((int) (this.panelW*0.30) - widthComponent/2, (int) (this.panelH*0.50) - heightComponent/2, widthComponent, heightComponent);
         this.add(surnameLabel);
@@ -39,7 +36,6 @@ public class InscriptionPanel extends JPanel {
         surnameField.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.50) - heightComponent/2, widthComponent, heightComponent);
         this.add(surnameField);
 
-        //PSEUDO
         JLabel pseudoLabel = new JLabel("Pseudo :");
         pseudoLabel.setBounds((int) (this.panelW*0.30) - widthComponent/2, (int) (this.panelH*0.70) - heightComponent/2, widthComponent, heightComponent);
         this.add(pseudoLabel);
@@ -47,7 +43,6 @@ public class InscriptionPanel extends JPanel {
         pseudoField.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.70) - heightComponent/2, widthComponent, heightComponent);
         this.add(pseudoField);
 
-        //E-MAIL
         JLabel emailLabel = new JLabel("E-mail :");
         emailLabel.setBounds((int) (this.panelW*0.30) - widthComponent/2, (int) (this.panelH*0.90) - heightComponent/2, widthComponent, heightComponent);
         this.add(emailLabel);
@@ -55,7 +50,6 @@ public class InscriptionPanel extends JPanel {
         emailField.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*0.90) - heightComponent/2, widthComponent, heightComponent);
         this.add(emailField);
 
-        //PASSWORD
         JLabel passwordLabel = new JLabel("Mot de passe :");
         passwordLabel.setBounds((int) (this.panelW*0.30) - widthComponent/2, (int) (this.panelH*1.10) - heightComponent/2, widthComponent, heightComponent);
         this.add(passwordLabel);
@@ -63,7 +57,6 @@ public class InscriptionPanel extends JPanel {
         passwordField.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*1.10) - heightComponent/2, widthComponent, heightComponent);
         this.add(passwordField);
 
-        //PASSWORD CONFIRMED
         JLabel passwordConfirmedLabel = new JLabel("Confirmation:");
         passwordConfirmedLabel.setBounds((int) (this.panelW*0.30) - widthComponent/2, (int) (this.panelH*1.30) - heightComponent/2, widthComponent, heightComponent);
         this.add(passwordConfirmedLabel);
@@ -73,7 +66,6 @@ public class InscriptionPanel extends JPanel {
 
         ArrayList<String> whiteListElements = WhiteListController.getElements();
 
-        //SUBMIT
         JButton submit = new JButton("S'inscrire");
         submit.setBounds((int) (this.panelW*0.65) - widthComponent/2, (int) (this.panelH*1.50) - heightComponent/2, widthComponent, heightComponent);
         submit.addActionListener(event -> {
@@ -92,7 +84,7 @@ public class InscriptionPanel extends JPanel {
                 JOptionPane.showMessageDialog(this.pan, "Les deux mots de passes ne sont pas identiques", "Erreur", JOptionPane.ERROR_MESSAGE);
 
             } else {
-                DatabaseConnexion.insertNewUser(emailField.getText(), PasswordController.hashPassword(new String(passwordField.getPassword())), pseudoField.getText(), firstNameField.getText(), surnameField.getText() );
+                DatabaseConnexionController.insertNewUser(emailField.getText(), PasswordController.hashPassword(new String(passwordField.getPassword())), pseudoField.getText(), firstNameField.getText(), surnameField.getText() );
                 emailField.setText(null);
                 passwordField.setText(null);
                 pseudoField.setText(null);
@@ -100,14 +92,13 @@ public class InscriptionPanel extends JPanel {
                 surnameField.setText(null);
                 passwordConfirmedField.setText(null);
                 JOptionPane.showMessageDialog(this.pan, "Inscription effectuée avec succès", "Succès", JOptionPane.INFORMATION_MESSAGE);
-                DatabaseConnexion.closeConn();
-                new DatabaseConnexion();
+                DatabaseConnexionController.closeConn();
+                new DatabaseConnexionController();
             }
         });
 
         this.add(submit);
 
         this.setBackground(Color.getHSBColor(250, 210, 50));
-
     }
 }

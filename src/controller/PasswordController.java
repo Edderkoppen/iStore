@@ -27,4 +27,9 @@ public class PasswordController {
         }
         return hexData.toString();
     }
+
+
+    public static void main(String[] args) {
+        System.out.println(PasswordController.hashPassword("1234i"));
+    }
 }

@@ -1,6 +1,4 @@
 
-W
-'src/components/pages/ConnexionPage.java,a\a\aa175223823659338f5ea3200603d7b2498f2b5a
 Y
 )src/components/pages/InscriptionPage.java,9\5\9586d624850cb59f9cc77642017152b5d861b7ab
 W
@@ -9,8 +7,6 @@ W
 src/Main.java,9\2\924f089edb4af5ee45c8a9d1129cd28e2b368138
 X
 (src/components/pages/UpdateUserPage.java,e\9\e927d95e3761391541f818f5ea0d4f13055c6f9b
-U
-%src/components/pages/WelcomePage.java,4\e\4e25c10521cf7ea59df3e498e0ca0056a2a826e6
 W
 'src/controller/WhiteListController.java,4\9\49869b3c113bd8a6b49f699289205548c94633d7
 V

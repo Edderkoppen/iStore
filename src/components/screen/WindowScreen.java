@@ -26,7 +26,7 @@ public class WindowScreen extends JFrame {
         UIManager.put("Menu.font", font);
         UIManager.put("MenuItem.font", font);
 
-        this.setIconImage(new ImageIcon("src/assets/images/logo.png").getImage());
+        this.setIconImage(new ImageIcon("src/assets/images/iStore.png").getImage());
         this.setSize(screenW, screenH);
         this.setLocationRelativeTo(null);
         this.getContentPane().setBackground(Color.darkGray);

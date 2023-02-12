@@ -13,7 +13,7 @@ public class DatabaseConnexionController {
         this.BDD = "istore";
         this.url = "jdbc:mysql://localhost:3306/" + BDD;
         this.user = "root";
-        this.password = "root";
+        this.password = "";
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
